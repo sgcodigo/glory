@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-abstract class MviDialogFragment<VM : MviViewModel<VS, E, I>, VS, E, I> :
+abstract class MviDialogFragment<VM : MviViewModel<VS, E>, VS, E> :
     DialogFragment() {
 
     protected var compositeDisposable = CompositeDisposable()
@@ -30,6 +30,8 @@ abstract class MviDialogFragment<VM : MviViewModel<VS, E, I>, VS, E, I> :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        getViewModel().subscribeStates()
 
         compositeDisposable.clear()
 

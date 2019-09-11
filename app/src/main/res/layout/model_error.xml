@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_placeholder_model"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingStart="@dimen/normal_layout_padding"
+        android:paddingEnd="@dimen/normal_layout_padding"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        tools:text="Something went wrong" />
+
+    <Button
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/normal_layout_padding"
+        android:background="@color/colorAccent"
+        android:text="@string/retry_label"
+        android:textColor="@color/white" />
+
+</LinearLayout>

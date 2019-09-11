@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-abstract class MviFragment<VM : MviViewModel<VS, E, I>, VS, E, I> : Fragment() {
+abstract class MviFragment<VM : MviViewModel<VS, E>, VS, E> : Fragment() {
 
     protected var compositeDisposable = CompositeDisposable()
 
@@ -16,6 +16,9 @@ abstract class MviFragment<VM : MviViewModel<VS, E, I>, VS, E, I> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        getViewModel().subscribeStates()
+
         compositeDisposable.clear()
 
         getViewModel().streamViewSates()

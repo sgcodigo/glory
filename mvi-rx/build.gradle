@@ -35,9 +35,9 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
 
     /*ViewModel*/
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodel"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodel"
 
     /*Reactive X*/
-    implementation "io.reactivex.rxjava2:rxkotlin:${versions.rxKotlin}"
-    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
+    api "io.reactivex.rxjava2:rxkotlin:${versions.rxKotlin}"
+    api "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
 }

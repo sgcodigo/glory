@@ -7,7 +7,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
-abstract class MviViewModel<VS, E, I> : ViewModel() {
+abstract class MviViewModel<VS, E> : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -15,12 +15,15 @@ abstract class MviViewModel<VS, E, I> : ViewModel() {
 
     private val eventSubject = PublishSubject.create<E>()
 
-    private val intentSubject = PublishSubject.create<I>()
+    private var subscribedAlready = false
 
-    init {
-        intentSubject.flatMap { process(it) }
-            .subscribe { viewStateSubject.onNext(it) }
-            .addTo(compositeDisposable)
+    fun subscribeStates() {
+        if (!subscribedAlready) {
+            subscribedAlready = true
+            processIntents()
+                .subscribe { viewStateSubject.onNext(it) }
+                .addTo(compositeDisposable)
+        }
     }
 
     /**
@@ -33,14 +36,7 @@ abstract class MviViewModel<VS, E, I> : ViewModel() {
      */
     fun streamEvents(): Observable<E> = eventSubject
 
-    protected abstract fun process(intent: I): Observable<VS>
-
-    /**
-     * The only input(Intent) to the viewModel.
-     */
-    fun emitIntent(intent: I) {
-        intentSubject.onNext(intent)
-    }
+    protected abstract fun processIntents(): Observable<VS>
 
     /**
      * Call inside ViewModel to emit one time event like error or navigation event

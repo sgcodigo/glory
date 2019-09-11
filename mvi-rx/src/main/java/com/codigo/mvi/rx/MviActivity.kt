@@ -8,15 +8,17 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-abstract class MviActivity<VM : MviViewModel<VS, E, I>, VS, E, I> : AppCompatActivity() {
+abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity() {
 
-    protected var compositeDisposable =  CompositeDisposable()
+    protected var compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         setContentView(getLayoutId())
+
+        getViewModel().subscribeStates()
 
         compositeDisposable.clear()
 

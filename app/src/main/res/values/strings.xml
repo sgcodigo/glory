@@ -3,4 +3,20 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_products">Products</string>
+
+    <string name="title_apple_products">Apple Products</string>
+    <string name="new_label">New</string>
+    <string name="retry_label">Retry</string>
+    <string name="mac_section_title">Mac</string>
+    <string name="iphone_section_title">iPhone</string>
+    <string name="see_all_label">See All</string>
+    <string name="product_sort_price_low_to_high">Price : Low to High</string>
+    <string name="product_sort_price_high_to_low">Price : High to Low</string>
+    <string name="empty_product_label">No product found!</string>
+
+    <string-array name="product_sort">
+        <item>@string/product_sort_price_low_to_high</item>
+        <item>@string/product_sort_price_high_to_low</item>
+    </string-array>
 </resources>
