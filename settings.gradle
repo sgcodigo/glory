@@ -1,2 +1,2 @@
-include ':app', ':mvi', ':mvi-rx'
+include ':app', ':mvi-rx'
 rootProject.name='Glory'
