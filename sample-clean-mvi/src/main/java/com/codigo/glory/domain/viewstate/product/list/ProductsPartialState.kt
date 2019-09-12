@@ -78,19 +78,7 @@ sealed class ProductsPartialState {
 
     object FavouriteUpdated : ProductsPartialState() {
         override fun reduce(oldState: ProductsViewState): ProductsViewState {
-            return oldState.copy(
-                favouriteError = null // re setting error just in case there's any
-            )
-        }
-    }
-
-    data class UpdateFavouriteError(
-        val error: Throwable? // Yes, nullable for one time event, toast for example.
-    ) : ProductsPartialState() {
-        override fun reduce(oldState: ProductsViewState): ProductsViewState {
-            return oldState.copy(
-                favouriteError = error
-            )
+            return oldState
         }
     }
 }

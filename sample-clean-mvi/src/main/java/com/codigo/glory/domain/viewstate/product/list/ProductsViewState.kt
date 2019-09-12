@@ -8,6 +8,5 @@ data class ProductsViewState(
     val loadMacsError: Throwable? = null,
     val iPhones: List<Product> = emptyList(),
     val loadingIPhones: Boolean = false,
-    val loadIPhonesError: Throwable? = null,
-    val favouriteError: Throwable? = null
+    val loadIPhonesError: Throwable? = null
 )

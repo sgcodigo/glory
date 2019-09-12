@@ -1,6 +1,7 @@
 package com.codigo.glory.app.feature.products
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codigo.glory.R
 import com.codigo.glory.domain.viewstate.product.list.ProductsViewState
@@ -9,23 +10,25 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_products.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ProductsActivity : MviActivity<ProductsViewModel, ProductsViewState, Unit>() {
+class ProductsActivity : MviActivity<ProductsViewModel, ProductsViewState, ProductsEvent>() {
 
     private val productsViewModel: ProductsViewModel by viewModel()
 
-    private var controller: ProductsController? = null
+    private lateinit var controller: ProductsController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        controller = ProductsController(this).apply {
-            rvContent.setController(this)
-            rvContent.layoutManager = LinearLayoutManager(this@ProductsActivity)
-        }
+        controller.updateFavouriteClicks()
+            .subscribe { getViewModel().toggleFavourite(it) }
+            .addTo(compositeDisposable)
 
+        controller.retryFetchIPhonesClicks()
+            .subscribe { getViewModel().retryFetchIPhones() }
+            .addTo(compositeDisposable)
 
-        controller?.updateFavouriteClicks()
-            ?.subscribe { getViewModel().toggleFavourite(it) }
+        controller.retryFetchMacsClicks()
+            .subscribe { getViewModel().retryFetchMacs() }
             ?.addTo(compositeDisposable)
 
         getViewModel().streamMacs()
@@ -34,15 +37,24 @@ class ProductsActivity : MviActivity<ProductsViewModel, ProductsViewState, Unit>
         getViewModel().fetchMacs()
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_products
+    override fun setUpLayout() {
+        setContentView(R.layout.activity_products)
+
+        controller = ProductsController(this).apply {
+            rvContent.setController(this)
+            rvContent.layoutManager = LinearLayoutManager(this@ProductsActivity)
+        }
+    }
 
     override fun getViewModel(): ProductsViewModel = productsViewModel
 
-    override fun renderEvent(event: Unit) {
-        // nothing to render
+    override fun renderEvent(event: ProductsEvent) {
+        if (event is ProductsEvent.UpdateFavouriteError) {
+            Toast.makeText(this, event.error.localizedMessage, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun render(viewState: ProductsViewState) {
-        controller?.setData(viewState)
+        controller.setData(viewState)
     }
 }

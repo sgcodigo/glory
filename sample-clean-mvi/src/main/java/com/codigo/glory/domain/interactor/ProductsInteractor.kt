@@ -1,12 +1,12 @@
 package com.codigo.glory.domain.interactor
 
-import com.codigo.glory.domain.executor.PostExecutionThread
 import com.codigo.glory.domain.executor.BackgroundThread
+import com.codigo.glory.domain.executor.PostExecutionThread
 import com.codigo.glory.domain.model.Product
+import com.codigo.glory.domain.model.result.Result
 import com.codigo.glory.domain.repository.ProductRepository
-import com.codigo.glory.domain.viewstate.product.list.ProductsPartialState
+import com.codigo.glory.domain.type.Either
 import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
 
 class ProductsInteractor constructor(
     private val productRepository: ProductRepository,
@@ -14,72 +14,54 @@ class ProductsInteractor constructor(
     backgroundThread: BackgroundThread
 ) : BaseInteractor(mainThread, backgroundThread) {
 
-    fun streamMacs(): Observable<ProductsPartialState> {
+    fun streamMacs(): Observable<Result.Success<List<Product.Mac>>> {
         return productRepository.streamMacs()
-            .map { ProductsPartialState.MacsResult(it) }
-            .cast(ProductsPartialState::class.java)
+            .map { Result.Success(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }
 
-    fun streamIPhones(): Observable<ProductsPartialState> {
+    fun streamIPhones(): Observable<Result.Success<List<Product.IPhone>>> {
         return productRepository.streamIPhones()
-            .map { ProductsPartialState.IPhonesResult(it) }
-            .cast(ProductsPartialState::class.java)
+            .map { Result.Success(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }
 
-    fun fetchMacs(): Observable<ProductsPartialState> {
+    fun fetchMacs(): Observable<Result<List<Product.Mac>>> {
         return productRepository.fetchMacs()
             .toObservable()
-            .map { ProductsPartialState.MacsLoaded }
-            .cast(ProductsPartialState::class.java)
-            .startWith(ProductsPartialState.LoadingMacs)
-            .onErrorReturn { ProductsPartialState.LoadMacsError(it) }
+            .map { Result.Success(it) as Result<List<Product.Mac>> }
+            .startWith(Result.Loading)
+            .onErrorReturn { Result.Error(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }
 
-    fun fetchIPhones(): Observable<ProductsPartialState> {
+    fun fetchIPhones(): Observable<Result<List<Product.IPhone>>> {
         return productRepository.fetchIPhones()
             .toObservable()
-            .map { ProductsPartialState.IPhonesLoaded }
-            .cast(ProductsPartialState::class.java)
-            .startWith(ProductsPartialState.LoadingIphones)
-            .onErrorReturn { ProductsPartialState.LoadIPhonesError(it) }
+            .map { Result.Success(it) as Result<List<Product.IPhone>> }
+            .startWith(Result.Loading)
+            .onErrorReturn { Result.Error(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }
 
-    fun toggleFavourite(iPhone: Product.IPhone): Observable<ProductsPartialState> {
+    fun toggleFavourite(iPhone: Product.IPhone): Observable<Either<Throwable, Any>> {
         return productRepository.toggleFavourite(iPhone)
             .toObservable()
-            .map { ProductsPartialState.FavouriteUpdated }
-            .cast(ProductsPartialState::class.java)
-            .onErrorResumeNext { error: Throwable ->
-                // Error can be dismissed at view side without being notified to interactor (toast, dialog,etc ...).
-                // So have to simulate a reset mechanism to not show the error again on screen re-entering
-                Observable.just(ProductsPartialState.UpdateFavouriteError(null)) //reset error after 200 millis
-                    .delay(200, TimeUnit.MILLISECONDS)
-                    .startWith(ProductsPartialState.UpdateFavouriteError(error)) //emit error
-            }
+            .map { Either.Right(Any()) as Either<Throwable, Any> }
+            .onErrorReturn { Either.Left(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }
 
-    fun toggleFavourite(mac: Product.Mac): Observable<ProductsPartialState> {
+    fun toggleFavourite(mac: Product.Mac): Observable<Either<Throwable, Any>> {
         return productRepository.toggleFavourite(mac)
             .toObservable()
-            .map { ProductsPartialState.FavouriteUpdated }
-            .cast(ProductsPartialState::class.java)
-            .onErrorResumeNext { error: Throwable ->
-                // Error can be dismissed at view side without being notified to interactor (toast, dialog,etc ...).
-                // So have to simulate a reset mechanism to not show the error again on screen re-entering
-                Observable.just(ProductsPartialState.UpdateFavouriteError(null)) //reset error after 200 millis
-                    .delay(200, TimeUnit.MILLISECONDS)
-                    .startWith(ProductsPartialState.UpdateFavouriteError(error)) //emit error
-            }
+            .map { Either.Right(Any()) as Either<Throwable, Any> }
+            .onErrorReturn { Either.Left(it) }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
     }

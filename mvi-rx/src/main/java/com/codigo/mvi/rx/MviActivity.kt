@@ -1,7 +1,6 @@
 package com.codigo.mvi.rx
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +15,7 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
 
         super.onCreate(savedInstanceState)
 
-        setContentView(getLayoutId())
+        setUpLayout()
 
         getViewModel().subscribeStates()
 
@@ -34,8 +33,7 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
 
     }
 
-    @LayoutRes
-    abstract fun getLayoutId(): Int
+    abstract fun setUpLayout()
 
     abstract fun getViewModel(): VM
 
