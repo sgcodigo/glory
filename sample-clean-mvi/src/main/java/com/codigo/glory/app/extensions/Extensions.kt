@@ -1,4 +1,4 @@
-package com.codigo.mvi.rx.extensions
+package com.codigo.glory.app.extensions
 
 import android.app.Activity
 import android.content.Context
