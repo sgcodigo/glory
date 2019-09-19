@@ -9,6 +9,7 @@
 /.idea/assetWizardSettings.xml
 /.idea/dictionaries
 /.idea/*.xml
+/.idea/.name
 .DS_Store
 /build
 /captures
