@@ -1,23 +1,12 @@
 package com.codigo.mvi.coroutine
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import android.util.Log
+import androidx.lifecycle.*
 
-abstract class MviViewModel<VS, E>: ViewModel() {
+abstract class MviViewModel<VS, E> : ViewModel() {
 
-    private val viewStateLiveData = MutableLiveData<VS>()
+    protected val viewStateLiveData = MediatorLiveData<VS>()
     private val eventLiveData = SingleLiveEvent<E>()
-
-    private var subscribedAlready = false
-
-    fun subscribeStates() {
-        if (!subscribedAlready) {
-            subscribedAlready = true
-            processIntents().map { viewStateLiveData.value = it }
-        }
-    }
 
     /**
      * ViewStates out put from the view Model
@@ -28,8 +17,6 @@ abstract class MviViewModel<VS, E>: ViewModel() {
      * One time events out put from the view Model
      */
     fun streamEvents(): LiveData<E> = eventLiveData
-
-    protected abstract fun processIntents(): LiveData<VS>
 
     /**
      * Call inside ViewModel to emit one time event like error or navigation event

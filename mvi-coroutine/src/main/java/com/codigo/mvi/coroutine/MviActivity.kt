@@ -11,8 +11,6 @@ abstract class MviActivity<VM: MviViewModel<VS, E>, VS, E>: AppCompatActivity() 
 
         setUpLayout()
 
-        getViewModel().subscribeStates()
-
         getViewModel().streamViewSates().observe(this) {
             render(it)
         }
