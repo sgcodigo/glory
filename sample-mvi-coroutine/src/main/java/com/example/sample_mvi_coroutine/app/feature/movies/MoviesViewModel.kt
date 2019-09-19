@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.codigo.mvi.coroutine.MviViewModel
 import com.example.sample_mvi_coroutine.domain.MovieRepository
 import com.example.sample_mvi_coroutine.domain.viewstate.movie.MoviesViewState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(
@@ -32,7 +33,7 @@ class MoviesViewModel(
     }
 
     fun fetchUpcomingMovies() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             // emit loading status
             movieState.copy(loadingUpcomingMovies = true, loadUpcomingMoviesError = null).also {
                 movieState = it
@@ -52,7 +53,7 @@ class MoviesViewModel(
     }
 
     fun fetchPopularMovies() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             movieState.copy(loadingPopularMovies = true, loadPopularMoviesError = null).also {
                 movieState = it
                 viewStateLiveData.postValue(it)

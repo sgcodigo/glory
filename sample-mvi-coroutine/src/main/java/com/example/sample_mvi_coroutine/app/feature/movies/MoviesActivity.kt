@@ -1,13 +1,11 @@
 package com.example.sample_mvi_coroutine.app.feature.movies
 
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codigo.mvi.coroutine.MviActivity
 import com.example.sample_mvi_coroutine.R
 import com.example.sample_mvi_coroutine.domain.viewstate.movie.MoviesViewState
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_movies.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

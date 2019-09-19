@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-
 def confidentialPropertiesFile = rootProject.file("confidential.properties")
 def confidentialProperties = new Properties()
 confidentialProperties.load(new FileInputStream(confidentialPropertiesFile))
@@ -48,23 +47,21 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha04"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha04"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
 
     /*koin dependency injection*/
-    implementation "org.koin:koin-android:2.0.1"
-    implementation "org.koin:koin-android-viewmodel:2.0.1"
+    implementation "org.koin:koin-android:${versions.koin}"
+    implementation "org.koin:koin-android-viewmodel:${versions.koin}"
 
     implementation("io.coil-kt:coil:0.7.0")
 
-    implementation "com.google.code.gson:gson:${versions.gson}"
-
     implementation "androidx.room:room-runtime:${versions.room}"
-    annotationProcessor "androidx.room:room-compiler:${versions.room}"
     implementation "androidx.room:room-ktx:${versions.room}"
+    kapt "androidx.room:room-compiler:${versions.room}"
 
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.loggingInterceptor}"
 
