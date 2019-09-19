@@ -1,2 +1,2 @@
-include ':sample-clean-mvi', ':mvi-rx', ':mvi-coroutine', ':sample-mvi-coroutine'
+include ':sample-clean-mvi', ':mvi-rx', ':mvi-livedata', ':sample-livedata'
 rootProject.name='Glory'
