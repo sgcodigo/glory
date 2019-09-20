@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/sgcodigo/glory.svg)](https://jitpack.io/#sgcodigo/glory)
 
 # Glory
 
