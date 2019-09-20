@@ -2,7 +2,9 @@
     <string name="app_name">Movies</string>
     <string name="title_activity_movies">Movies</string>
     <string name="label_upcoming_movies">Upcoming</string>
-    <string name="retry_upcoming_movies">Unable to load upcoming movies.\nTap here to try again.</string>
+    <string name="retry_upcoming_movies">Unable to load upcoming movies\nTap here to try again</string>
+    <string name="error_loading_upcoming_movies">Unable to load upcoming movies</string>
     <string name="label_popular_movies">Popular</string>
-    <string name="retry_popular_movies">Unable to load popular movies.\nTap here to try again.</string>
+    <string name="retry_popular_movies">Unable to load popular movies\nTap here to try again</string>
+    <string name="error_loading_popular_movies">Unable to load popular movies.</string>
 </resources>

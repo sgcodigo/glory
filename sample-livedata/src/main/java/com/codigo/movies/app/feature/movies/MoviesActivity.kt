@@ -5,9 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codigo.mvi.livedata.MviActivity
 import com.codigo.movies.R
+import com.codigo.movies.data.util.gone
+import com.codigo.movies.data.util.hide
+import com.codigo.movies.data.util.show
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
 import kotlinx.android.synthetic.main.activity_movies.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent>() {
 
@@ -38,8 +42,19 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
             adapter = upcomingMovieAdapter
         }
 
+        errorMiniPopular.setErrorText(getString(R.string.error_loading_popular_movies))
+        errorMiniUpcoming.setErrorText(getString(R.string.error_loading_upcoming_movies))
+
+        errorMiniPopular.setOnClickListener {
+            getViewModel().fetchPopularMovies()
+        }
+
         btnRetryPopular.setOnClickListener {
             getViewModel().fetchPopularMovies()
+        }
+
+        errorMiniUpcoming.setOnClickListener {
+            getViewModel().fetchUpcomingMovies()
         }
 
         btnRetryUpcoming.setOnClickListener {
@@ -50,52 +65,57 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
     override fun getViewModel() = moviesViewModel
 
     override fun render(viewState: MoviesViewState) {
+        with(viewState) {
+            Timber.i("po:${popularMovies.size} and up:${upcomingMovies.size}")
+            if (loadingPopularMovies && popularMovies.isNotEmpty()) {
+                errorMiniPopular.showLoading()
+            } else if (loadingPopularMovies) {
+                pbPopularMovie.show()
+            } else {
+                pbPopularMovie.gone()
+                errorMiniPopular.hideLoading()
+            }
 
-        if (viewState.loadingPopularMovies) {
-            btnRetryPopular.visibility = View.GONE
-            pbPopularMovie.visibility = View.VISIBLE
-        } else {
-            pbPopularMovie.visibility = View.GONE
-        }
+            if (loadPopularMoviesError != null && popularMovies.isNotEmpty()) {
+                errorMiniPopular.showError()
+            } else if (loadPopularMoviesError != null) {
+                btnRetryPopular.show()
+            } else {
+                btnRetryPopular.gone()
+                errorMiniPopular.hideError()
+            }
 
-        if (viewState.popularMovies.isNotEmpty()) {
-            btnRetryPopular.visibility = View.GONE
-            popularMovieAdapter.submitList(viewState.popularMovies)
-        }
+            if (popularMovies.isNotEmpty()) {
+                pbPopularMovie.gone()
+                popularMovieAdapter.submitList(popularMovies)
+            }
 
-        viewState.loadPopularMoviesError?.also {
-            pbPopularMovie.visibility = View.GONE
-            btnRetryPopular.visibility = View.VISIBLE
-        }
+            if (loadingUpcomingMovies && upcomingMovies.isNotEmpty()) {
+                errorMiniUpcoming.showLoading()
+            } else if (loadingUpcomingMovies) {
+                pbUpcomingMovie.show()
+            } else {
+                pbUpcomingMovie.gone()
+                errorMiniUpcoming.hideLoading()
+            }
 
+            if (loadUpcomingMoviesError != null && upcomingMovies.isNotEmpty()) {
+                errorMiniUpcoming.showError()
+            } else if (loadUpcomingMoviesError != null) {
+                btnRetryUpcoming.show()
+            } else {
+                btnRetryUpcoming.gone()
+                errorMiniUpcoming.hideError()
+            }
 
-        if (viewState.loadingUpcomingMovies) {
-            btnRetryUpcoming.visibility = View.GONE
-            pbUpcomingMovie.visibility = View.VISIBLE
-        } else {
-            pbUpcomingMovie.visibility = View.GONE
-        }
-
-        if (viewState.upcomingMovies.isNotEmpty()) {
-            btnRetryUpcoming.visibility = View.GONE
-            upcomingMovieAdapter.submitList(viewState.upcomingMovies)
-        }
-
-        viewState.loadUpcomingMoviesError?.also {
-            pbUpcomingMovie.visibility = View.GONE
-            btnRetryUpcoming.visibility = View.VISIBLE
+            if (upcomingMovies.isNotEmpty()) {
+                pbUpcomingMovie.gone()
+                upcomingMovieAdapter.submitList(upcomingMovies)
+            }
         }
     }
 
     override fun renderEvent(event: MoviesEvent) {
-//        when(event) {
-//            is MoviesEvent.LoadUpcomingMovieError -> {
-//                btnRetryUpcoming.visibility = View.VISIBLE
-//            }
-//            is MoviesEvent.LoadPopularMovieError -> {
-//                btnRetryPopular.visibility = View.VISIBLE
-//            }
-//        }
     }
 
 }

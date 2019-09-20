@@ -3,6 +3,7 @@ package com.codigo.movies.app
 import android.app.Application
 import com.codigo.movies.BuildConfig
 import com.codigo.movies.app.di.dataModule
+import com.codigo.movies.app.di.dbModule
 import com.codigo.movies.app.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -24,7 +25,7 @@ class MoviesApp: Application() {
             androidContext(this@MoviesApp)
             loadKoinModules(
                 listOf(
-                    dataModule, viewModelModule
+                    dataModule, viewModelModule, dbModule
                 )
             )
         }
