@@ -70,7 +70,7 @@ fun addMovies(newMovies: List<Movie>) {
   notifyDataSetChanged()
 }
 ```
-Now it's the Model's job to combine the old movies with the new ones thus what's left for the view is to call Adapter's `setMovies(movies)`. Calling `setMovies` every time will likely incurs performance hit so it's recommanded to use DiffUtil or a convenience wrapper class like `ListAdapter` to help with diffing. Combining oldstates with new states is called state reducing in MVI. Let's consider a screen showing movies with pagination. A **limited** list of movies will be returned every time we do a fetch. Please note here. It's clear that each fetch won't return the whole complete view state. So we'll use a partial state to represents the states[data/loading/error] of every fetch. And this partial state knows how to merge itself into the old view state. It knows how to reduce state in other word. Here's how it look likes -
+Now it's the Model's job to combine the old movies with the new ones thus what's left for the view is to call Adapter's `setMovies(movies)`. Calling `setMovies` every time will likely incurs performance hit so it's recommanded to use DiffUtil or a convenience wrapper class like `ListAdapter` to help with diffing. Combining oldstates with new states is called state reducing in MVI. Let's consider a screen showing movies with pagination. A **limited** list of movies will be returned every time we do a fetch. Thing to note here is it's clear that each fetch won't return the whole complete view state. So we'll use a partial state to represents the states[data/loading/error] of every fetch. And this partial state knows how to create a new complete view state by merging itself with the old view state. It knows how to reduce state in other word. Here's how it look likes -
 
 ```
 sealed class MoviesPartialState {
@@ -110,7 +110,7 @@ sealed class MoviesPartialState {
 }
 ```
 
-And finally, each partial states will be merged into a single Observable stream and use scan() operator to do the reducing.
+And finally, each partial states will be merged to form a single Observable stream and use scan() operator to do the reducing.
 
 ```
 fun processIntents() {
@@ -131,12 +131,12 @@ fun processIntents() {
 }
 ```
 
-#### MviActivity/Fragment
+#### MviActivity/Fragment/FragmentDialog
 
 Developer is typing ...
 
 
-## Setup
+## Get Started
 
 **STEP 1.** Add it in your root build.gradle at the end of repositories:
 ```
@@ -160,12 +160,13 @@ dependencies {
 
 *Livedata*
 ```
-dependencies {
-  implementation 'com.github.sgcodigo.glory:mvi-livedata:latest_version'
-}
+  Under development ...
 ```
 ## Playing with samples
-Before opening the sample-livedata project, you need to firt replace the fake api key in **confidential.properties** with your **TMDB** api key:
+Refer to sample-clean-mvi module the implementation of Rx version of the lib. That sample also uses clean architecture along side mvi.
+
+
+For sample-livedata project to work, you first need to replace the fake api key in **confidential.properties** with your **TMDB** api key:
 ```
 TMDB_API_KEY = "your_api_key"
 ```
