@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vgPhoto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_16"
+        android:padding="8dp"
+        tools:text="HeinHtet"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+        app:layout_constraintEnd_toEndOf="@id/ivPhoto" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivUser"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserName"
+        app:layout_constraintEnd_toEndOf="@id/tvUserName"
+        app:layout_constraintStart_toStartOf="@+id/tvUserName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDownloadCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Download" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvViewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_14"
+        app:layout_constraintBottom_toTopOf="@id/tvDownloadCount"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="View" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

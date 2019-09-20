@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">sample-rx</string>
+    <string name="lb_retry">Retry</string>
+</resources>
