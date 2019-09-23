@@ -22,7 +22,7 @@ import com.google.android.material.button.MaterialButton
 enum class State {
     Loading,
     Error,
-    None,
+    Hide,
     TransparentLoading
 }
 
@@ -48,9 +48,6 @@ class StateView : RelativeLayout {
         init()
     }
 
-    fun setErrorMessage(message: String?) {
-        this.tvError.text = message
-    }
 
     fun setState(state: State, errorMessage: String? = null, retryEnable: Boolean = false) {
         when (state) {
@@ -62,7 +59,7 @@ class StateView : RelativeLayout {
                 lyStateContainer.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        android.R.color.white
+                     R.color.colorPrimaryDark
                     )
                 )
             }
@@ -77,19 +74,7 @@ class StateView : RelativeLayout {
                 lyStateContainer.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        android.R.color.white
-                    )
-                )
-            }
-            State.None -> {
-                view.hide()
-                pgLoading.hide()
-                tvError.hide()
-                btnRetry.hide()
-                lyStateContainer.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        android.R.color.white
+                        R.color.colorPrimaryDark
                     )
                 )
             }
@@ -105,6 +90,9 @@ class StateView : RelativeLayout {
                     )
                 )
             }
+            State.Hide -> {
+                view.hide()
+            }
         }
     }
 
@@ -115,6 +103,6 @@ class StateView : RelativeLayout {
         pgLoading = view.findViewById(R.id.pbLoading)
         btnRetry = view.findViewById(R.id.btnRetry)
         btnRetry.setOnClickListener { errorListener?.retry() }
-        setState(State.None)
+        setState(State.Hide)
     }
 }

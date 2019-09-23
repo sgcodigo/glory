@@ -8,5 +8,6 @@ import com.deevvdd.sample_rx.data.model.response.PhotoResponse
 data class HomeViewState(
     val loading: Boolean = false,
     val popularPhotoResult: PhotoResponse? = null,
-    val error: Throwable? = null
-)
+    val error: Throwable? = null,
+    val viewMoreLoading: Boolean = false
+    )

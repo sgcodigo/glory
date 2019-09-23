@@ -1,7 +1,6 @@
 package com.deevvdd.sample_rx.app.features.home.widgets
 
 import android.app.Activity
-import android.text.Layout
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -21,10 +20,17 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     private var photos = ArrayList<Hit>()
 
 
-    fun setPhoto(photos: List<Hit>) {
+    fun setPhoto(
+        photos: List<Hit>,
+        page: Int
+    ) {
+        if(page == 1){
+            this.photos.clear()
+        }
         this.photos.addAll(photos)
         this.notifyDataSetChanged()
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {

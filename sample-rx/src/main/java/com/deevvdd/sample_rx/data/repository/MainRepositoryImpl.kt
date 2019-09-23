@@ -1,5 +1,6 @@
 package com.deevvdd.sample_rx.data.repository
 
+import com.deevvdd.sample_rx.data.model.request.PhotoRequest
 import com.deevvdd.sample_rx.data.model.response.PhotoResponse
 import com.deevvdd.sample_rx.data.network.MainRemote
 import io.reactivex.Single
@@ -9,11 +10,10 @@ import io.reactivex.Single
  */
 
 class MainRepositoryImpl(private val mainRemote: MainRemote) : MainRespository {
-    override fun fetchLatestPhoto(page: Int): Single<PhotoResponse> {
-        return mainRemote.fetchLatestPhoto(page, 20)
+    override fun fetchPopularPhoto(photoRequest: PhotoRequest): Single<PhotoResponse> {
+        return mainRemote.fetchPopularPhoto(photoRequest)
     }
 
-    override fun fetchPopularPhoto(page: Int): Single<PhotoResponse> {
-        return mainRemote.fetchPopularPhoto(page, 20)
-    }
+
+
 }

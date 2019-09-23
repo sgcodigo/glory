@@ -9,28 +9,38 @@ import com.deevvdd.sample_rx.data.model.response.PhotoResponse
 sealed class HomePartialState {
     abstract fun reduce(oldState: HomeViewState): HomeViewState
 
-    object LoadingPopularPhoto : HomePartialState() {
+    object LoadingPhoto : HomePartialState() {
         override fun reduce(oldState: HomeViewState): HomeViewState {
             return oldState.copy(
-                loading = true
+                loading = true,
+                viewMoreLoading = false
             )
         }
     }
 
-    data class PopularPhotoResult(val result: PhotoResponse) : HomePartialState() {
+    object ViewMoreLoadingPhoto : HomePartialState() {
+        override fun reduce(oldState: HomeViewState): HomeViewState {
+            return oldState.copy(
+                viewMoreLoading = true
+            )
+        }
+    }
+
+    data class PhotoResult(val result: PhotoResponse) : HomePartialState() {
         override fun reduce(oldState: HomeViewState): HomeViewState {
             return oldState.copy(
                 loading = false,
                 error = null,
+                viewMoreLoading = false,
                 popularPhotoResult = result
             )
         }
     }
 
 
-    data class ErrorPopularPhoto(val error: Throwable) : HomePartialState() {
+    data class ErrorPhoto(val error: Throwable) : HomePartialState() {
         override fun reduce(oldState: HomeViewState): HomeViewState {
-            return oldState.copy(loading = false, error = error)
+            return oldState.copy(loading = false, error = error, viewMoreLoading = false)
         }
     }
 }

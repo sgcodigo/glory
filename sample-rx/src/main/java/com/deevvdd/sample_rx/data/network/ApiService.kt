@@ -15,6 +15,7 @@ interface ApiService {
         @Query("q") query: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
-        @Query("order") order: String
-        ): Single<PhotoResponse>
+        @Query("order") order: String,
+        @Query("category") category: String
+    ): Single<PhotoResponse>
 }
