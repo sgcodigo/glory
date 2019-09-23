@@ -2,7 +2,7 @@ package com.codigo.movies.domain.model
 
 data class Movie(
 
-    val id: String,
+    val id: Long,
 
     val title: String,
 

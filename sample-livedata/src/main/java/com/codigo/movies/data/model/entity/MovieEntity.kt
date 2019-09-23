@@ -2,15 +2,18 @@ package com.codigo.movies.data.model.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-//    indices = [Index(value = ["id", "type"], unique = true)],
+    indices = [Index(value = ["movieId", "type"], unique = true)],
     tableName = "movies")
 data class MovieEntity(
 
-    @PrimaryKey
-    var dbId: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+
+    var movieId: Long,
 
     val title: String,
 

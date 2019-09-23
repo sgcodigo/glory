@@ -11,13 +11,13 @@ fun List<MovieData>.toDomain() = map {
 
 @JvmName("MovieEntityToDomain")
 fun List<MovieEntity>.toDomain() = map {
-    Movie(it.dbId, it.title, it.posterPath)
+    Movie(it.movieId, it.title, it.posterPath)
 }
 
 @JvmName("MovieDomainToEntity")
 fun List<Movie>.toEntity(type: String) = map {
     MovieEntity(
-        dbId = it.id + type,
+        movieId = it.id,
         type = type,
         title = it.title,
         posterPath = it.posterPath

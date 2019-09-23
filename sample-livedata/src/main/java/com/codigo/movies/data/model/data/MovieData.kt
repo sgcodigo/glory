@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class MovieData(
 
-    val id: String,
+    val id: Long,
 
     val title: String,
 
