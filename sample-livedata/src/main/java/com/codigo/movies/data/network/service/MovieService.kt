@@ -1,6 +1,6 @@
 package com.codigo.movies.data.network.service
 
-import com.codigo.movies.domain.model.Movie
+import com.codigo.movies.data.model.response.MovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,7 +16,3 @@ interface MovieService {
         @Query("api_key") apiKey: String
     ): MovieResponse
 }
-
-data class MovieResponse(
-    val results: List<Movie> = emptyList()
-)

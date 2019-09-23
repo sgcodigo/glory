@@ -20,23 +20,13 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun fetchPopularMovies(): List<Movie> {
-        return remote.fetchPopularMovies().map {
-            it.apply {
-                type = Movie.TYPE_POPULAR
-                dbId = id + type
-            }
-        }.also {
+        return remote.fetchPopularMovies().also {
             local.insertPopularMovies(it)
         }
     }
 
     override suspend fun fetchUpcomingMovies(): List<Movie> {
-        return remote.fetchUpcomingMovies().map {
-            it.apply {
-                type = Movie.TYPE_UPCOMING
-                dbId = id + type
-            }
-        }.also {
+        return remote.fetchUpcomingMovies().also {
             local.insertUpcomingMovies(it)
         }
     }
