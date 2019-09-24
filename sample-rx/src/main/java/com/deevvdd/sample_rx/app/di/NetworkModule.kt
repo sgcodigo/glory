@@ -6,12 +6,10 @@ import com.deevvdd.sample_rx.data.network.createNetworkClient
 import com.deevvdd.sample_rx.data.network.httpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import kotlin.math.sin
 
 /**
  * Created by heinhtet on 19,September,2019
  */
-
 
 val networkModule = module {
     single { httpClient(get()) }
@@ -20,4 +18,3 @@ val networkModule = module {
     single { MainRemote(get()) }
 }
 fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
-

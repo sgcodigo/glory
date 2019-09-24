@@ -6,6 +6,6 @@ package com.deevvdd.sample_rx.data.model.request
 data class PhotoRequest(
     val page: Int,
     val categoryName: String,
-    val orderBy : String,
-    val isRefreshedAll : Boolean
+    val orderBy: String,
+    val isRefreshedAll: Boolean
 )

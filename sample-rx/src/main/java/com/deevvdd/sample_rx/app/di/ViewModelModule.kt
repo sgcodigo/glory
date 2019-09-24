@@ -1,6 +1,5 @@
 package com.deevvdd.sample_rx.app.di
 
-import androidx.lifecycle.SavedStateHandle
 import com.deevvdd.sample_rx.app.features.home.HomeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -10,5 +9,4 @@ import org.koin.dsl.module
  */
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
-
 }

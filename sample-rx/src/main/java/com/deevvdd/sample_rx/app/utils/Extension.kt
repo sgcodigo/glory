@@ -28,7 +28,6 @@ fun AppCompatImageView.load(url: String?, circle: Boolean = false) {
         .error(placeHolder)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
-
 }
 
 fun View.show() {

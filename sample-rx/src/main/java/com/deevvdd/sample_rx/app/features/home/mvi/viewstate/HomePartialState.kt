@@ -37,7 +37,6 @@ sealed class HomePartialState {
         }
     }
 
-
     data class ErrorPhoto(val error: Throwable) : HomePartialState() {
         override fun reduce(oldState: HomeViewState): HomeViewState {
             return oldState.copy(loading = false, error = error, viewMoreLoading = false)

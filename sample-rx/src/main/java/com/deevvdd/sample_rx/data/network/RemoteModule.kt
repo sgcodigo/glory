@@ -7,7 +7,7 @@ package com.deevvdd.sample_rx.data.network
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
-import com.readystatesoftware.chuck.ChuckInterceptor
+import java.lang.reflect.Type
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -15,7 +15,6 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.lang.reflect.Type
 
 @SuppressLint("MissingPermission")
 @Suppress("deprecation")
@@ -37,7 +36,6 @@ fun httpClient(context: Context): OkHttpClient {
     val myCache = Cache(context.cacheDir, cacheSize)
     return OkHttpClient.Builder()
         .cache(myCache)
-        .addInterceptor(ChuckInterceptor(context))
         .build()
 }
 

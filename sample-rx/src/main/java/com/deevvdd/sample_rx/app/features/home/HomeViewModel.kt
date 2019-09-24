@@ -29,7 +29,6 @@ class HomeViewModel(
     private val fetchInitialPhotoSubject = PublishSubject.create<PhotoRequest>()
     private val fetchPhotoLoadMoreSubject = PublishSubject.create<PhotoRequest>()
 
-
     fun fetchPhoto(request: PhotoRequest) {
         Timber.d("fetchMorePhoto $request")
         fetchPhotoSubject.onNext(request)
@@ -45,7 +44,6 @@ class HomeViewModel(
         fetchInitialPhotoSubject.onNext(request)
     }
 
-
     private fun startWithValue(page: Int): HomePartialState {
         return if (page > 1) {
             HomePartialState.ViewMoreLoadingPhoto
@@ -53,7 +51,6 @@ class HomeViewModel(
             HomePartialState.LoadingPhoto
         }
     }
-
 
     override fun processIntents(): Observable<HomeViewState> {
 
@@ -71,7 +68,6 @@ class HomeViewModel(
                         .onErrorReturn { HomePartialState.ErrorPhoto(it) }
                 }
 
-
         val fetchPhotoState =
             fetchPhotoSubject
                 .switchMap { request ->
@@ -84,7 +80,6 @@ class HomeViewModel(
                         .startWith(HomePartialState.LoadingPhoto)
                         .onErrorReturn { HomePartialState.ErrorPhoto(it) }
                 }
-
 
         val fetchLoadMorePhotoState =
             fetchPhotoLoadMoreSubject
@@ -109,8 +104,6 @@ class HomeViewModel(
         })
     }
 
-
     private fun filterSubject(request: PhotoRequest) {
-
     }
 }

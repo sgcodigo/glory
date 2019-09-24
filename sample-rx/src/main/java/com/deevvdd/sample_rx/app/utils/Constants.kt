@@ -3,7 +3,7 @@ package com.deevvdd.sample_rx.app.utils
 /**
  * Created by Hein Htet on 2019-09-21.
  */
- val CATEGORIES = arrayListOf(
+val CATEGORIES = arrayListOf(
     "fashion",
     "nature",
     "background",
@@ -26,8 +26,8 @@ package com.deevvdd.sample_rx.app.utils
     "music"
 )
 val ORDER = arrayListOf(
-   "latest",
-   "popular"
+    "latest",
+    "popular"
 )
 const val POPULAR = "popular"
 const val LATEST = "latest"

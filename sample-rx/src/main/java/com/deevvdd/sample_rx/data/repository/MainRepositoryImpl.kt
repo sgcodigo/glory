@@ -13,7 +13,4 @@ class MainRepositoryImpl(private val mainRemote: MainRemote) : MainRespository {
     override fun fetchPopularPhoto(photoRequest: PhotoRequest): Single<PhotoResponse> {
         return mainRemote.fetchPopularPhoto(photoRequest)
     }
-
-
-
 }

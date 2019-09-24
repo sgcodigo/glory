@@ -10,18 +10,20 @@ import com.deevvdd.sample_rx.R
 import com.deevvdd.sample_rx.app.features.home.mvi.event.HomeEvent
 import com.deevvdd.sample_rx.app.features.home.mvi.viewstate.HomeViewState
 import com.deevvdd.sample_rx.app.features.home.widgets.PhotoAdapter
-import com.deevvdd.sample_rx.app.utils.*
+import com.deevvdd.sample_rx.app.utils.CATEGORIES
+import com.deevvdd.sample_rx.app.utils.ErrorListener
+import com.deevvdd.sample_rx.app.utils.ORDER
+import com.deevvdd.sample_rx.app.utils.State
+import com.deevvdd.sample_rx.app.utils.hide
+import com.deevvdd.sample_rx.app.utils.show
 import com.deevvdd.sample_rx.data.model.request.PhotoRequest
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
-
 
 /**
  * Created by heinhtet on 19,September,2019
  */
 class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), ErrorListener {
-
 
     override fun retry() {
         fetchPhoto()
@@ -46,7 +48,6 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
             layoutManager = LinearLayoutManager(this@HomeActivity)
         }
     }
-
 
     val homeViewModel: HomeViewModel by viewModel()
 
@@ -82,9 +83,7 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
         if (viewState.popularPhotoResult != null) {
             photoAdapter.setPhoto(viewState.popularPhotoResult.hits, homeViewModel.page)
         }
-
     }
-
 
     override fun renderEvent(event: HomeEvent) {
     }
@@ -122,7 +121,6 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
                     }
                 }
             }
-
         }
         spCategories.adapter = categoryAdapter
     }
@@ -135,7 +133,7 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
         }
     }
 
-    private fun createPhotoRequest(isRefreshedAll :Boolean = true): PhotoRequest {
+    private fun createPhotoRequest(isRefreshedAll: Boolean = true): PhotoRequest {
         return PhotoRequest(
             homeViewModel.page,
             homeViewModel.selectedCategoryName,

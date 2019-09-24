@@ -10,4 +10,4 @@ data class HomeViewState(
     val popularPhotoResult: PhotoResponse? = null,
     val error: Throwable? = null,
     val viewMoreLoading: Boolean = false
-    )
+)

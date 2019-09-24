@@ -18,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/spinner_bg"
+            android:popupBackground="@color/colorPrimaryDark"
             android:popupElevation="3dp"
             android:stateListAnimator="@drawable/spinner_sla"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/spinner_bg"
-            android:popupBackground="@android:color/white"
+            android:popupBackground="@color/colorPrimaryDark"
             android:popupElevation="3dp"
             android:stateListAnimator="@drawable/spinner_sla"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,14 +83,13 @@
 
     <com.deevvdd.sample_rx.app.utils.StateView
         android:id="@+id/vgState"
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

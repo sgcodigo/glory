@@ -48,7 +48,6 @@ class StateView : RelativeLayout {
         init()
     }
 
-
     fun setState(state: State, errorMessage: String? = null, retryEnable: Boolean = false) {
         when (state) {
             State.Loading -> {
@@ -59,7 +58,7 @@ class StateView : RelativeLayout {
                 lyStateContainer.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                     R.color.colorPrimaryDark
+                        R.color.colorPrimaryDark
                     )
                 )
             }
