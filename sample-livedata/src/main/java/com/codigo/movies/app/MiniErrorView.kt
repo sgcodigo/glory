@@ -1,5 +1,7 @@
 package com.codigo.movies.app
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet

@@ -1,4 +1,4 @@
-package com.codigo.movies.domain
+package com.codigo.movies.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.codigo.movies.domain.model.Movie

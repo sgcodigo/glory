@@ -8,7 +8,7 @@ import com.codigo.movies.data.network.okHttpClient
 import com.codigo.movies.data.network.retrofitClient
 import com.codigo.movies.data.network.service.MovieService
 import com.codigo.movies.data.repository.MovieRepositoryImpl
-import com.codigo.movies.domain.MovieRepository
+import com.codigo.movies.domain.repository.MovieRepository
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

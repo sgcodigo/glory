@@ -3,7 +3,7 @@ package com.codigo.movies.data.repository
 import androidx.lifecycle.LiveData
 import com.codigo.movies.data.datasource.local.MovieLocal
 import com.codigo.movies.data.datasource.remote.MovieRemote
-import com.codigo.movies.domain.MovieRepository
+import com.codigo.movies.domain.repository.MovieRepository
 import com.codigo.movies.domain.model.Movie
 
 class MovieRepositoryImpl(
