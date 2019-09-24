@@ -2,6 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+def keyPropsFile = file('keys.properties')
+Properties keyProps = new Properties()
+
+if (keyPropsFile.canRead()) {
+    keyProps.load(new FileInputStream(keyPropsFile))
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -19,6 +26,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_KEY', keyProps['API_KEY']
+        }
+        debug{
+            minifyEnabled false
+            shrinkResources false
+            buildConfigField 'String', 'API_KEY', keyProps['API_KEY']
         }
     }
 
