@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-def keyPropsFile = file('keys.properties')
+def keyPropsFile = rootProject.file('keys.properties')
 Properties keyProps = new Properties()
 
 if (keyPropsFile.canRead()) {
