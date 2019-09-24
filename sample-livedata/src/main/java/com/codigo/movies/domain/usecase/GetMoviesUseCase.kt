@@ -2,7 +2,6 @@ package com.codigo.movies.domain.usecase
 
 import com.codigo.movies.data.model.entity.MovieEntity
 import com.codigo.movies.domain.Either
-import com.codigo.movies.domain.Result
 import com.codigo.movies.domain.model.Movie
 import com.codigo.movies.domain.repository.MovieRepository
 

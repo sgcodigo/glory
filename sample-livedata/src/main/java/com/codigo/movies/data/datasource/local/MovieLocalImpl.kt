@@ -10,7 +10,7 @@ import com.codigo.movies.domain.model.Movie
 
 class MovieLocalImpl(
     private val movieDao: MovieDao
-): MovieLocal {
+) : MovieLocal {
 
     override fun insertPopularMovies(movies: List<Movie>) {
         movieDao.insert(movies.toEntity(MovieEntity.TYPE_POPULAR))
@@ -27,5 +27,4 @@ class MovieLocalImpl(
     override fun streamUpcomingMovies() = movieDao.streamMovies(MovieEntity.TYPE_UPCOMING)
         .map { it.toDomain() }
         .distinctUntilChanged()
-
 }

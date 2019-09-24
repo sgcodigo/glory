@@ -1,9 +1,7 @@
 package com.codigo.movies.data.util
 
-import android.graphics.Bitmap
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import java.io.ByteArrayOutputStream
 
 fun View.snack(text: String, duration: Int = Snackbar.LENGTH_SHORT, actionText: String = "", action: () -> Unit = {}) {
     Snackbar.make(this, text, duration).setAction(actionText) { action() }.show()

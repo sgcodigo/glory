@@ -3,13 +3,13 @@ package com.codigo.movies.data.repository
 import androidx.lifecycle.LiveData
 import com.codigo.movies.data.datasource.local.MovieLocal
 import com.codigo.movies.data.datasource.remote.MovieRemote
-import com.codigo.movies.domain.repository.MovieRepository
 import com.codigo.movies.domain.model.Movie
+import com.codigo.movies.domain.repository.MovieRepository
 
 class MovieRepositoryImpl(
     private val local: MovieLocal,
     private val remote: MovieRemote
-): MovieRepository {
+) : MovieRepository {
 
     override fun streamUpcomingMovies(): LiveData<List<Movie>> {
         return local.streamUpcomingMovies()

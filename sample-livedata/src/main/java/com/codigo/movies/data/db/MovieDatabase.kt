@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.codigo.movies.data.db.dao.MovieDao
 import com.codigo.movies.data.model.entity.MovieEntity
-import com.codigo.movies.domain.model.Movie
 
 @Database(entities = [MovieEntity::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {

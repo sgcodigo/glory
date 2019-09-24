@@ -1,14 +1,12 @@
 package com.codigo.movies.app.feature.movies
 
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codigo.mvi.livedata.MviActivity
 import com.codigo.movies.R
 import com.codigo.movies.data.util.gone
-import com.codigo.movies.data.util.hide
 import com.codigo.movies.data.util.show
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
+import com.codigo.mvi.livedata.MviActivity
 import kotlinx.android.synthetic.main.activity_movies.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -117,5 +115,4 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
 
     override fun renderEvent(event: MoviesEvent) {
     }
-
 }

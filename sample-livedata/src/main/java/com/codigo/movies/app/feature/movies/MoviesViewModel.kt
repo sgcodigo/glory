@@ -1,21 +1,15 @@
 package com.codigo.movies.app.feature.movies
 
-import androidx.lifecycle.*
+import androidx.lifecycle.viewModelScope
 import com.codigo.movies.data.model.entity.MovieEntity
-import com.codigo.movies.domain.Result
-import com.codigo.movies.domain.repository.MovieRepository
-import com.codigo.mvi.livedata.MviViewModel
 import com.codigo.movies.domain.usecase.GetMoviesUseCase
 import com.codigo.movies.domain.usecase.StreamMoviesUseCase
 import com.codigo.movies.domain.viewstate.movie.MoviesPartialState
 import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.*
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
+import com.codigo.mvi.livedata.MviViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import kotlin.properties.Delegates
-import kotlin.properties.Delegates.observable
 
 class MoviesViewModel(
     streamMoviesUseCase: StreamMoviesUseCase,

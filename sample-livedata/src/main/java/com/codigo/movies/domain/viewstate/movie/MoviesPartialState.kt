@@ -1,13 +1,11 @@
 package com.codigo.movies.domain.viewstate.movie
 
 import com.codigo.movies.domain.model.Movie
-import java.lang.Exception
 
 sealed class MoviesPartialState {
 
-    object Empty: MoviesPartialState() {
+    object Empty : MoviesPartialState() {
         override fun reduce(oldState: MoviesViewState) = MoviesViewState()
-
     }
 
     abstract fun reduce(oldState: MoviesViewState): MoviesViewState
@@ -61,5 +59,4 @@ sealed class MoviesPartialState {
             loadUpcomingMoviesError = e
         )
     }
-
 }

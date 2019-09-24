@@ -1,14 +1,12 @@
 package com.codigo.movies.data.datasource.remote
 
 import com.codigo.movies.BuildConfig
-import com.codigo.movies.data.model.data.MovieData
 import com.codigo.movies.data.network.service.MovieService
 import com.codigo.movies.data.toDomain
-import com.codigo.movies.domain.model.Movie
 
 class MovieRemoteImpl(
     private val movieService: MovieService
-): MovieRemote {
+) : MovieRemote {
 
     override suspend fun fetchUpcomingMovies() = movieService
         .getUpcomingMovies(BuildConfig.ApiKey).results.toDomain()

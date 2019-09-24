@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.codigo.movies.data.model.entity.MovieEntity
-import com.codigo.movies.domain.model.Movie
 
 @Dao
 interface MovieDao {
