@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.codigo.glory.data.database.CleanDatabase
 import org.koin.dsl.module
 
-
 /**
  * Created by khunzohn on 2019-09-11 at Codigo
  */

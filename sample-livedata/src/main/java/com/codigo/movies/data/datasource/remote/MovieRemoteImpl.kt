@@ -6,7 +6,7 @@ import com.codigo.movies.domain.model.Movie
 
 class MovieRemoteImpl(
     private val movieService: MovieService
-): MovieRemote {
+) : MovieRemote {
 
     override suspend fun fetchUpcomingMovies(): List<Movie> {
         return movieService.getUpcomingMovies(BuildConfig.ApiKey).results

@@ -2,7 +2,12 @@ package com.codigo.glory.app
 
 import android.app.Application
 import com.airbnb.epoxy.Carousel
-import com.codigo.glory.app.di.*
+import com.codigo.glory.app.di.appModule
+import com.codigo.glory.app.di.dataModule
+import com.codigo.glory.app.di.databaseModule
+import com.codigo.glory.app.di.interactorModule
+import com.codigo.glory.app.di.mapperModule
+import com.codigo.glory.app.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.loadKoinModules

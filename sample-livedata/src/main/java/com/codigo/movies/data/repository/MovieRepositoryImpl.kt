@@ -9,7 +9,7 @@ import com.codigo.movies.domain.model.Movie
 class MovieRepositoryImpl(
     private val local: MovieLocal,
     private val remote: MovieRemote
-): MovieRepository {
+) : MovieRepository {
 
     override fun streamUpcomingMovies(): LiveData<List<Movie>> {
         return local.streamUpcomingMovies()

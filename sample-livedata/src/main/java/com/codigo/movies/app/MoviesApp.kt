@@ -10,8 +10,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class MoviesApp: Application() {
-
+class MoviesApp : Application() {
     override fun onCreate() {
         super.onCreate()
 

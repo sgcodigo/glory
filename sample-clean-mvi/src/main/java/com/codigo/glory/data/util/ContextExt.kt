@@ -7,7 +7,6 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.view.WindowManager
 
-
 fun Context.isNetworkConnected(): Boolean {
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 
@@ -17,7 +16,6 @@ fun Context.isNetworkConnected(): Boolean {
                 it.isConnected && (it.type == ConnectivityManager.TYPE_WIFI ||
                         it.type == ConnectivityManager.TYPE_MOBILE)
             } ?: false
-
         } else {
             activeNetwork?.let { network ->
                 connectivityManager.getNetworkCapabilities(network)?.let {

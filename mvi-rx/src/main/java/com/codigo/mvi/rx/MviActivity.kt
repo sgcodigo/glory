@@ -27,9 +27,7 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { renderEventInternal(it) }
             .addTo(compositeDisposable)
-
     }
-
 
     abstract fun setUpLayout()
 

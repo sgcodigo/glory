@@ -1,6 +1,7 @@
 package com.codigo.movies.app.feature.movies
 
-import androidx.lifecycle.*
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.codigo.mvi.livedata.MviViewModel
 import com.codigo.movies.domain.MovieRepository
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
@@ -15,16 +16,27 @@ class MoviesViewModel(
 
     init {
         // observe movies
-        viewStateLiveData.addSource(movieRepository.streamPopularMovies().map {
-            movieState.copy(popularMovies = it, loadingPopularMovies = false, loadPopularMoviesError = null).also {
-                movieState = it
-            }
-        }) { viewStateLiveData.value = it }
+        viewStateLiveData.addSource(movieRepository.streamPopularMovies()
+            .map {
+                movieState.copy(
+                    popularMovies = it,
+                    loadingPopularMovies = false,
+                    loadPopularMoviesError = null
+                )
+                    .also {
+                        movieState = it
+                    }
+            }) { viewStateLiveData.value = it }
 
         viewStateLiveData.addSource(movieRepository.streamUpcomingMovies().map {
-            movieState.copy(upcomingMovies = it, loadingUpcomingMovies = false, loadUpcomingMoviesError = null).also {
-                movieState = it
-            }
+            movieState.copy(
+                upcomingMovies = it,
+                loadingUpcomingMovies = false,
+                loadUpcomingMoviesError = null
+            )
+                .also {
+                    movieState = it
+                }
         }) { viewStateLiveData.value = it }
 
         // first time refresh from server

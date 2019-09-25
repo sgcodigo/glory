@@ -18,7 +18,7 @@ class IPhoneMapper {
                 currency = it.currency ?: "",
                 inStock = it.inStock ?: false,
                 imageUrl = it.imageUrl ?: "",
-                new = it.new?:false
+                new = it.new ?: false
             )
         }
     }

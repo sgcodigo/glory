@@ -13,7 +13,7 @@ import com.codigo.movies.data.util.IMAGE_BASE_URL
 import com.codigo.movies.domain.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieDiffCallback) {
+class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return LayoutInflater
@@ -26,7 +26,7 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(Mov
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val tvName by lazy { itemView.tvName }
         private val ivPoster by lazy { itemView.ivPoster }
@@ -41,9 +41,8 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(Mov
     }
 }
 
-object MovieDiffCallback: DiffUtil.ItemCallback<Movie>() {
+object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem
-
 }

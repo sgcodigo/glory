@@ -3,7 +3,7 @@ package com.codigo.movies.data.datasource.local
 import androidx.lifecycle.MutableLiveData
 import com.codigo.movies.domain.model.Movie
 
-class MovieLocalImpl: MovieLocal {
+class MovieLocalImpl : MovieLocal {
 
     private val upcomingMovies = MutableLiveData<List<Movie>>()
     private val popularMovies = MutableLiveData<List<Movie>>()
@@ -19,5 +19,4 @@ class MovieLocalImpl: MovieLocal {
     }
 
     override fun streamUpcomingMovies() = upcomingMovies
-
 }
