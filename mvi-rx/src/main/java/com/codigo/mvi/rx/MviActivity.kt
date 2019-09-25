@@ -14,11 +14,8 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         setUpLayout()
-
         getViewModel().subscribeStates()
-
         compositeDisposable.clear()
 
         getViewModel().streamViewSates()
@@ -32,6 +29,7 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
             .addTo(compositeDisposable)
 
     }
+
 
     abstract fun setUpLayout()
 
