@@ -2,7 +2,6 @@ package com.codigo.mvi.livedata
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.observe
 
 abstract class MviActivity<VM : MviViewModel<VS, E, *>, VS, E> : AppCompatActivity() {

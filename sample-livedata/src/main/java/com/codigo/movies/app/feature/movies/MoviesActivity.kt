@@ -22,9 +22,9 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
 
     private val offlineAlertDialog by lazy {
         AlertDialog.Builder(this)
-            .setTitle("You are offline")
-            .setMessage("It seems there is a problem with your connection. Please check your network and try again")
-            .setPositiveButton("Dismiss", null)
+            .setTitle(R.string.alert_title_offline)
+            .setMessage(R.string.alert_msg_offline)
+            .setPositiveButton(R.string.alert_dismiss, null)
             .show()
     }
 

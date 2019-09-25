@@ -7,4 +7,7 @@
     <string name="label_popular_movies">Popular</string>
     <string name="retry_popular_movies">Unable to load popular movies\nTap here to try again</string>
     <string name="error_loading_popular_movies">Unable to load popular movies.</string>
+    <string name="alert_title_offline">You are offline</string>
+    <string name="alert_msg_offline">It seems there is a problem with your connection. Please check your network and try again</string>
+    <string name="alert_dismiss">Dismiss</string>
 </resources>
