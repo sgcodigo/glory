@@ -2,7 +2,7 @@ package com.codigo.mvi.livedata
 
 import androidx.lifecycle.*
 
-abstract class MviViewModel<VS, E> : ViewModel() {
+abstract class MviViewModel<VS, E, I> : ViewModel() {
 
     protected val viewStateLiveData = MediatorLiveData<VS>()
     private val eventLiveData = SingleLiveEvent<E>()
@@ -16,6 +16,8 @@ abstract class MviViewModel<VS, E> : ViewModel() {
      * One time events out put from the view Model
      */
     fun streamEvents(): LiveData<E> = eventLiveData
+
+    abstract fun sendIntent(intent: I)
 
     /**
      * Call inside ViewModel to emit one time event like error or navigation event

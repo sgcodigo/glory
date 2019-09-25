@@ -1,6 +1,8 @@
 package com.codigo.movies.app.feature.movies
 
 import androidx.lifecycle.viewModelScope
+import com.codigo.movies.MovieIntent
+import com.codigo.movies.MovieIntent.*
 import com.codigo.movies.data.model.entity.MovieEntity
 import com.codigo.movies.domain.usecase.GetMoviesUseCase
 import com.codigo.movies.domain.usecase.StreamMoviesUseCase
@@ -12,31 +14,42 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(
-    streamMoviesUseCase: StreamMoviesUseCase,
+    private val streamMoviesUseCase: StreamMoviesUseCase,
     private val getMoviesUseCase: GetMoviesUseCase
-) : MviViewModel<MoviesViewState, MoviesEvent>() {
+) : MviViewModel<MoviesViewState, MoviesEvent, MovieIntent>() {
 
     private var viewState = MoviesViewState()
 
     init {
-        // observe movies
+        sendIntent(StreamPopularMoviesIntent)
+        sendIntent(StreamUpcomingMoviesIntent)
+        sendIntent(RefreshPopularMoviesIntent)
+        sendIntent(RefreshUpcomingMoviesIntent)
+    }
+
+
+    override fun sendIntent(intent: MovieIntent) {
+        when (intent) {
+            is StreamPopularMoviesIntent -> streamPopularMovies()
+            is StreamUpcomingMoviesIntent -> streamUpcomingMovies()
+            is RefreshPopularMoviesIntent -> fetchPopularMovies()
+            is RefreshUpcomingMoviesIntent -> fetchUpcomingMovies()
+        }
+    }
+
+    private fun streamPopularMovies() {
         viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_POPULAR)) {
             updateViewState(PopularResult(it))
         }
+    }
 
+    private fun streamUpcomingMovies() {
         viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_UPCOMING)) {
             updateViewState(UpcomingResult(it))
         }
-
-        // first time refresh from server
-        fetchPopularMovies()
-        fetchUpcomingMovies()
-
-        // init empty view state
-        viewStateLiveData.value = MoviesViewState()
     }
 
-    fun fetchPopularMovies() {
+    private fun fetchPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             // emit loading status
             updateViewState(PopularLoading)
@@ -49,7 +62,7 @@ class MoviesViewModel(
         }
     }
 
-    fun fetchUpcomingMovies() {
+    private fun fetchUpcomingMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             // emit loading status
             updateViewState(UpcomingLoading)

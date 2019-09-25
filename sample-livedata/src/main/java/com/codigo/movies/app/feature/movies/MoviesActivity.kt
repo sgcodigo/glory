@@ -2,6 +2,7 @@ package com.codigo.movies.app.feature.movies
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.codigo.movies.MovieIntent
 import com.codigo.movies.R
 import com.codigo.movies.data.util.gone
 import com.codigo.movies.data.util.show
@@ -44,19 +45,19 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
         errorMiniUpcoming.setErrorText(getString(R.string.error_loading_upcoming_movies))
 
         errorMiniPopular.setOnClickListener {
-            getViewModel().fetchPopularMovies()
+            getViewModel().sendIntent(MovieIntent.RefreshPopularMoviesIntent)
         }
 
         btnRetryPopular.setOnClickListener {
-            getViewModel().fetchPopularMovies()
+            getViewModel().sendIntent(MovieIntent.RefreshPopularMoviesIntent)
         }
 
         errorMiniUpcoming.setOnClickListener {
-            getViewModel().fetchUpcomingMovies()
+            getViewModel().sendIntent(MovieIntent.RefreshUpcomingMoviesIntent)
         }
 
         btnRetryUpcoming.setOnClickListener {
-            getViewModel().fetchUpcomingMovies()
+            getViewModel().sendIntent(MovieIntent.RefreshUpcomingMoviesIntent)
         }
     }
 
