@@ -5,7 +5,13 @@ import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.TypedEpoxyController
 import com.airbnb.epoxy.carousel
 import com.codigo.glory.R
-import com.codigo.glory.app.epoxymodel.*
+import com.codigo.glory.app.epoxymodel.horizontalLoading
+import com.codigo.glory.app.epoxymodel.sectionTitle
+import com.codigo.glory.app.epoxymodel.horizontalError
+import com.codigo.glory.app.epoxymodel.error
+import com.codigo.glory.app.epoxymodel.withModelsFrom
+import com.codigo.glory.app.epoxymodel.ProductModel_
+import com.codigo.glory.app.epoxymodel.loading
 import com.codigo.glory.domain.model.Product
 import com.codigo.glory.domain.viewstate.product.list.ProductsViewState
 import io.reactivex.subjects.PublishSubject
@@ -30,7 +36,7 @@ class ProductsController constructor(
     override fun buildModels(data: ProductsViewState) {
         sectionTitle {
             id("Macs")
-            seeAllAction {  }
+            seeAllAction { }
             sectionTitle(context.getString(R.string.mac_section_title))
         }
 
@@ -85,7 +91,7 @@ class ProductsController constructor(
 
         sectionTitle {
             id("IPhones")
-            seeAllAction {  }
+            seeAllAction { }
             sectionTitle(context.getString(R.string.iphone_section_title))
         }
 

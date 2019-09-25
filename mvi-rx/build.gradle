@@ -37,6 +37,8 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test:runner:$versions.test_runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
+
 
     /*ViewModel*/
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodel"

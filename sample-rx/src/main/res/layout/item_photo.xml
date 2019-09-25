@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vgPhoto"
+    app:cardCornerRadius="@dimen/space_4"
+    android:layout_width="match_parent"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    android:layout_height="wrap_content"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+            app:layout_constraintEnd_toEndOf="@id/ivPhoto"
+            tools:text="HeinHtet" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/tvUserName"
+            app:layout_constraintEnd_toEndOf="@id/tvUserName"
+            app:layout_constraintStart_toStartOf="@+id/tvUserName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDownloadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Download" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvViewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintBottom_toTopOf="@id/tvDownloadCount"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="View" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
