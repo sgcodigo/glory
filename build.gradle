@@ -8,12 +8,22 @@ buildscript {
 
     }
     dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:8.2.0"
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id "org.jlleitschuh.gradle.ktlint" version "8.2.0"
+}
+ext.ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
+subprojects {
+    apply from: "$project.rootDir/tools/script-ktlint.gradle"
 }
 
 allprojects {

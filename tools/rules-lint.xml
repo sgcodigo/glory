@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="HardcodedText" severity="warning" />
+    <issue id="IconMissingDensityFolder" severity="warning" />
+    <issue id="GradleDependency" severity="warning" />
+    <issue id="VectorPath" severity="informational" />
+    <issue id="SmallSp" severity="ignore" />
+    <issue id="ContentDescription" severity="ignore" />
+    <issue id="LabelFor" severity="ignore" />
+    <issue id="UnusedAttribute" severity="ignore" />
+    <issue id="VectorRaster" severity="ignore" />
+    <issue id="Overdraw" severity="ignore" />
+    <issue id="RtlSymmetry" severity="ignore" />
+    <issue id="IconLocation">]
+        <ignore path="res/drawable/ic_bg_login.webp" />
+        <ignore path="res/drawable/ic_splash.webp" />
+    </issue>
+</lint>

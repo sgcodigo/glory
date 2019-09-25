@@ -68,7 +68,6 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
             btnRetryPopular.visibility = View.VISIBLE
         }
 
-
         if (viewState.loadingUpcomingMovies) {
             btnRetryUpcoming.visibility = View.GONE
             pbUpcomingMovie.visibility = View.VISIBLE
@@ -97,5 +96,4 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
 //            }
 //        }
     }
-
 }

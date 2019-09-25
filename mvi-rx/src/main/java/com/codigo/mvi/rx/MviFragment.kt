@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class MviFragment<VM : MviViewModel<VS, E>, VS, E> : Fragment() {
 
-    protected var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     abstract fun getViewModel(): VM
 

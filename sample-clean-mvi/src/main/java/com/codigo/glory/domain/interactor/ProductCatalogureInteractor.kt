@@ -23,7 +23,7 @@ class ProductCatalogureInteractor constructor(
     private val sortOptionSubject = BehaviorSubject.create<SortOption>()
 
     fun streamMacs(): Observable<ProductCataloguePartialState> {
-        //combineLatest needs all streams to emit at least once
+        // combineLatest needs all streams to emit at least once
         newFilterSubject.onNext(false)
         favouriteFilterSubject.onNext(false)
         sortOptionSubject.onNext(SortOption.LOW_TO_HIGH)
@@ -49,7 +49,7 @@ class ProductCatalogureInteractor constructor(
     }
 
     fun streamIPhones(): Observable<ProductCataloguePartialState> {
-        //combineLatest needs all streams to emit at least once
+        // combineLatest needs all streams to emit at least once
         newFilterSubject.onNext(false)
         favouriteFilterSubject.onNext(false)
         sortOptionSubject.onNext(SortOption.LOW_TO_HIGH)
@@ -96,9 +96,11 @@ class ProductCatalogureInteractor constructor(
             .onErrorResumeNext { error: Throwable ->
                 // Error can be dismissed at view side without being notified to interactor (toast, dialog,etc ...).
                 // So have to simulate a reset mechanism to not show the error again on screen re-entering
-                Observable.just(ProductCataloguePartialState.FavouriteError(null)) //reset error after 200 millis
+                Observable.just(ProductCataloguePartialState.FavouriteError(null))
+                    // reset error after 200 millis
                     .delay(200, TimeUnit.MILLISECONDS)
-                    .startWith(ProductCataloguePartialState.FavouriteError(error)) //emit error
+                    .startWith(ProductCataloguePartialState.FavouriteError(error))
+                // emit error
             }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())
@@ -110,11 +112,14 @@ class ProductCatalogureInteractor constructor(
             .map { ProductCataloguePartialState.FavouriteUpdated }
             .cast(ProductCataloguePartialState::class.java)
             .onErrorResumeNext { error: Throwable ->
-                // Error can be dismissed at view side without being notified to interactor (toast, dialog,etc ...).
-                // So have to simulate a reset mechanism to not show the error again on screen re-entering
-                Observable.just(ProductCataloguePartialState.FavouriteError(null)) //reset error after 200 millis
+                // Error can be dismissed at view side without being notified to interactor
+                // (toast, dialog,etc ...).
+                // So have to simulate a reset mechanism to not show the error again on screen
+                // re-entering
+                Observable.just(ProductCataloguePartialState.FavouriteError(null))
+                    // reset error after 200 millis
                     .delay(200, TimeUnit.MILLISECONDS)
-                    .startWith(ProductCataloguePartialState.FavouriteError(error)) //emit error
+                    .startWith(ProductCataloguePartialState.FavouriteError(error)) // emit error
             }
             .subscribeOn(backgroundThread.getScheduler())
             .observeOn(mainThread.getScheduler())

@@ -13,7 +13,6 @@ import java.io.InputStreamReader
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
 
-
 class GsonProductService constructor(
     private val context: Context
 ) {
@@ -46,7 +45,6 @@ class GsonProductService constructor(
         }
             .delay(2, TimeUnit.SECONDS) // simulate response time
     }
-
 
     fun favouriteMac(macId: String): Single<Any> {
         return Single.fromCallable {
