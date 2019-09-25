@@ -11,5 +11,4 @@ class GetMoviesUseCase(
         MovieEntity.TYPE_UPCOMING -> movieRepository.fetchUpcomingMovies()
         else -> throw IllegalArgumentException("Unknown type: $type")
     }
-
 }
