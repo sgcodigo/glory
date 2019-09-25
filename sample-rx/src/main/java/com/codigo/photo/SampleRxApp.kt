@@ -4,6 +4,7 @@ import android.app.Application
 import com.codigo.photo.app.di.networkModule
 import com.codigo.photo.app.di.repositoryModule
 import com.codigo.photo.app.di.viewModelModule
+import com.deevvdd.sample_rx.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin

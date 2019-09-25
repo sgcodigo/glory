@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.codigo.photo.R
 import com.codigo.photo.app.utils.load
 import com.codigo.photo.data.model.response.Hit
+import com.deevvdd.sample_rx.R
 import kotlinx.android.synthetic.main.item_photo.view.*
 
 /**

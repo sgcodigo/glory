@@ -3,7 +3,6 @@ package com.codigo.photo.app.features.home
 import android.content.Context
 import com.codigo.mvi.rx.MviViewModel
 import com.codigo.mvi.rx.rxutils.RxSchedulers
-import com.codigo.photo.R
 import com.codigo.photo.app.features.home.mvi.event.HomeEvent
 import com.codigo.photo.app.features.home.mvi.viewstate.HomePartialState
 import com.codigo.photo.app.features.home.mvi.viewstate.HomeViewState
@@ -11,6 +10,7 @@ import com.codigo.photo.app.utils.POPULAR
 import com.codigo.photo.data.model.request.PhotoRequest
 import com.codigo.photo.data.network.hasNetwork
 import com.codigo.photo.data.repository.MainRepositoryImpl
+import com.deevvdd.sample_rx.R
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 

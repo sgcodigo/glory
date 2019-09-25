@@ -6,7 +6,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codigo.mvi.rx.MviActivity
-import com.codigo.photo.R
 import com.codigo.photo.app.features.home.mvi.event.HomeEvent
 import com.codigo.photo.app.features.home.mvi.viewstate.HomeViewState
 import com.codigo.photo.app.features.home.widgets.PhotoAdapter
@@ -17,6 +16,7 @@ import com.codigo.photo.app.utils.State
 import com.codigo.photo.app.utils.hide
 import com.codigo.photo.app.utils.show
 import com.codigo.photo.data.model.request.PhotoRequest
+import com.deevvdd.sample_rx.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel

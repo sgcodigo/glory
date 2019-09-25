@@ -5,7 +5,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.codigo.photo.R
+import com.deevvdd.sample_rx.R
 
 /**
  * Created by heinhtet on 20,September,2019

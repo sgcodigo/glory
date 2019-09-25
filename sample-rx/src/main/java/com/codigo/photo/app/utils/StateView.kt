@@ -12,7 +12,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.codigo.photo.R
+import com.deevvdd.sample_rx.R
 import com.google.android.material.button.MaterialButton
 
 /**
