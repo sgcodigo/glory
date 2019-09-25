@@ -4,10 +4,6 @@ import com.codigo.movies.domain.model.Movie
 
 sealed class MoviesPartialState {
 
-    object Empty : MoviesPartialState() {
-        override fun reduce(oldState: MoviesViewState) = MoviesViewState()
-    }
-
     abstract fun reduce(oldState: MoviesViewState): MoviesViewState
 
     data class PopularResult(val movies: List<Movie>) : MoviesPartialState() {

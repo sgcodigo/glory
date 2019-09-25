@@ -2,16 +2,27 @@ package com.codigo.movies.app.feature.movies
 
 import androidx.lifecycle.viewModelScope
 import com.codigo.movies.MovieIntent
-import com.codigo.movies.MovieIntent.*
+import com.codigo.movies.MovieIntent.RefreshPopularMoviesIntent
+import com.codigo.movies.MovieIntent.RefreshUpcomingMoviesIntent
+import com.codigo.movies.MovieIntent.StreamPopularMoviesIntent
+import com.codigo.movies.MovieIntent.StreamUpcomingMoviesIntent
 import com.codigo.movies.data.model.entity.MovieEntity
 import com.codigo.movies.domain.usecase.GetMoviesUseCase
 import com.codigo.movies.domain.usecase.StreamMoviesUseCase
 import com.codigo.movies.domain.viewstate.movie.MoviesPartialState
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.*
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularError
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoaded
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoading
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularResult
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingError
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoaded
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoading
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingResult
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
 import com.codigo.mvi.livedata.MviViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okio.IOException
 
 class MoviesViewModel(
     private val streamMoviesUseCase: StreamMoviesUseCase,
@@ -26,7 +37,6 @@ class MoviesViewModel(
         sendIntent(RefreshPopularMoviesIntent)
         sendIntent(RefreshUpcomingMoviesIntent)
     }
-
 
     override fun sendIntent(intent: MovieIntent) {
         when (intent) {
@@ -56,6 +66,9 @@ class MoviesViewModel(
 
             getMoviesUseCase(MovieEntity.TYPE_POPULAR).either({
                 updateViewState(PopularError(it))
+                if (it is IOException) {
+                    emitEvent(MoviesEvent.OfflineEvent)
+                }
             }, {
                 updateViewState(PopularLoaded)
             })
@@ -69,6 +82,7 @@ class MoviesViewModel(
 
             getMoviesUseCase(MovieEntity.TYPE_UPCOMING).either({
                 updateViewState(UpcomingError(it))
+                emitEvent(MoviesEvent.OfflineEvent)
             }, {
                 updateViewState(UpcomingLoaded)
             })

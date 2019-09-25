@@ -1,6 +1,8 @@
 package com.codigo.mvi.livedata
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 abstract class MviViewModel<VS, E, I> : ViewModel() {
 
@@ -23,6 +25,12 @@ abstract class MviViewModel<VS, E, I> : ViewModel() {
      * Call inside ViewModel to emit one time event like error or navigation event
      */
     protected fun emitEvent(event: E) {
-        eventLiveData.value = event
+        viewModelScope.launch(Dispatchers.Main) {
+            eventLiveData.value = event
+        }
+    }
+
+    protected fun postEvent(event: E) {
+        eventLiveData.postValue(event)
     }
 }

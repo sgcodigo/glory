@@ -1,5 +1,6 @@
 package com.codigo.movies.app.feature.movies
 
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codigo.movies.MovieIntent
@@ -18,6 +19,14 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
 
     private lateinit var popularMovieAdapter: MovieListAdapter
     private lateinit var upcomingMovieAdapter: MovieListAdapter
+
+    private val offlineAlertDialog by lazy {
+        AlertDialog.Builder(this)
+            .setTitle("You are offline")
+            .setMessage("It seems there is a problem with your connection. Please check your network and try again")
+            .setPositiveButton("Dismiss", null)
+            .show()
+    }
 
     override fun setUpLayout() {
         setContentView(R.layout.activity_movies)
@@ -115,5 +124,12 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
     }
 
     override fun renderEvent(event: MoviesEvent) {
+        when (event) {
+            is MoviesEvent.OfflineEvent -> {
+                if (!offlineAlertDialog.isShowing) {
+                    offlineAlertDialog.show()
+                }
+            }
+        }
     }
 }
