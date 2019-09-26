@@ -3,4 +3,8 @@
     <string name="lb_retry">Retry</string>
     <string name="lb_more">More</string>
     <string name="message_network_error">No Internet Connection</string>
+    <string name="latest">Latest</string>
+    <string name="popular">Popular</string>
+    <string name="no_more_items">No more items</string>
+    <string name="category_travel">Travel</string>
 </resources>

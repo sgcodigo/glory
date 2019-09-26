@@ -30,6 +30,7 @@ class HomeViewModel(
 
     private val fetchPhotoSubject = PublishSubject.create<PhotoRequest>()
     private val fetchInitialPhotoSubject = PublishSubject.create<PhotoRequest>()
+    private val fetchPhotoRefreshSubject = PublishSubject.create<PhotoRequest>()
     private val fetchPhotoLoadMoreSubject = PublishSubject.create<PhotoRequest>()
 
     fun fetchPhoto(request: PhotoRequest) {
@@ -52,6 +53,10 @@ class HomeViewModel(
         }
     }
 
+    fun fetchPhotoRefresh(request: PhotoRequest) {
+        fetchPhotoRefreshSubject.onNext(request)
+    }
+
     private fun startWithValue(page: Int): HomePartialState {
         return if (page > 1) {
             HomePartialState.ViewMoreLoadingPhoto
@@ -70,7 +75,7 @@ class HomeViewModel(
                         .fetchPopularPhoto(request)
                         .toObservable()
                         .compose(RxSchedulers.applyObservableAsync())
-                        .map { HomePartialState.PhotoResult(it) }
+                        .map { HomePartialState.PhotoResult(it, page) }
                         .cast(HomePartialState::class.java)
                         .startWith(HomePartialState.LoadingPhoto)
                         .onErrorReturn { HomePartialState.ErrorPhoto(it) }
@@ -83,7 +88,7 @@ class HomeViewModel(
                         .fetchPopularPhoto(request)
                         .toObservable()
                         .compose(RxSchedulers.applyObservableAsync())
-                        .map { HomePartialState.PhotoResult(it) }
+                        .map { HomePartialState.PhotoResult(it, page) }
                         .cast(HomePartialState::class.java)
                         .startWith(HomePartialState.LoadingPhoto)
                         .onErrorReturn { HomePartialState.ErrorPhoto(it) }
@@ -96,16 +101,30 @@ class HomeViewModel(
                         .fetchPopularPhoto(request)
                         .toObservable()
                         .compose(RxSchedulers.applyObservableAsync())
-                        .map { HomePartialState.PhotoResult(it) }
+                        .map { HomePartialState.PhotoResult(it, page) }
                         .cast(HomePartialState::class.java)
                         .startWith(startWithValue(request.page))
+                        .onErrorReturn { HomePartialState.ErrorPhoto(it) }
+                }
+
+        val fetchRefreshPhotoState =
+            fetchPhotoRefreshSubject
+                .switchMap { request ->
+                    mainRepositoryImpl
+                        .fetchPopularPhoto(request)
+                        .toObservable()
+                        .compose(RxSchedulers.applyObservableAsync())
+                        .map { HomePartialState.PhotoResult(it, page) }
+                        .cast(HomePartialState::class.java)
+                        .startWith(HomePartialState.LoadingPhoto)
                         .onErrorReturn { HomePartialState.ErrorPhoto(it) }
                 }
 
         val state = Observable.mergeArray(
             fetchInitialPhotoState,
             fetchPhotoState,
-            fetchLoadMorePhotoState
+            fetchLoadMorePhotoState,
+            fetchRefreshPhotoState
         ).distinctUntilChanged()
         return state.scan(HomeViewState(), { oldState, partialState ->
             partialState.reduce(oldState)

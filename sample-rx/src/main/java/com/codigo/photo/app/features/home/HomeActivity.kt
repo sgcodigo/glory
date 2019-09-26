@@ -5,16 +5,18 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codigo.mvi.rx.MviActivity
 import com.codigo.photo.app.features.home.mvi.event.HomeEvent
 import com.codigo.photo.app.features.home.mvi.viewstate.HomeViewState
+import com.codigo.photo.app.features.home.widgets.OnSelectSortOptionListener
 import com.codigo.photo.app.features.home.widgets.PhotoAdapter
+import com.codigo.photo.app.features.home.widgets.SortSpinnerAdapter
 import com.codigo.photo.app.utils.CATEGORIES
 import com.codigo.photo.app.utils.ErrorListener
 import com.codigo.photo.app.utils.ORDER
 import com.codigo.photo.app.utils.State
-import com.codigo.photo.app.utils.hide
-import com.codigo.photo.app.utils.show
+import com.codigo.photo.data.model.SortOption
 import com.codigo.photo.data.model.request.PhotoRequest
 import com.deevvdd.sample_rx.R
 import com.google.android.material.snackbar.Snackbar
@@ -24,22 +26,22 @@ import org.koin.android.viewmodel.ext.android.viewModel
 /**
  * Created by heinhtet on 19,September,2019
  */
-class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), ErrorListener {
+class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), ErrorListener,
+    OnSelectSortOptionListener {
 
     override fun retry() {
         fetchPhoto()
     }
 
     private lateinit var photoAdapter: PhotoAdapter
+    private lateinit var sortSpinnerAdapter: SortSpinnerAdapter
+
     override fun setUpLayout() {
         setContentView(R.layout.activity_home)
         vgState.errorListener = this
         initRv()
-        btnMore.setOnClickListener {
-            homeViewModel.page++
-            fetchPhoto()
-        }
         initSpinner()
+        initToolbar()
     }
 
     private fun initRv() {
@@ -48,6 +50,20 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
             adapter = photoAdapter
             layoutManager = LinearLayoutManager(this@HomeActivity)
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            homeViewModel.page = 1
+            homeViewModel.fetchPhotoRefresh(createPhotoRequest(false))
+        }
+
+        rvPhoto.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    homeViewModel.page++
+                    fetchPhoto()
+                }
+            }
+        })
     }
 
     val homeViewModel: HomeViewModel by viewModel()
@@ -70,18 +86,14 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
         }
 
         if (viewState.error != null) {
+            if (swipeRefreshLayout.isRefreshing)
+                swipeRefreshLayout.isRefreshing = false
             vgState.setState(State.Error, viewState.error.localizedMessage, true)
         }
 
-        if (viewState.viewMoreLoading) {
-            pgLoading.show()
-            btnMore.isEnabled = false
-        } else {
-            btnMore.isEnabled = true
-            pgLoading.hide()
-        }
-
         if (viewState.popularPhotoResult != null) {
+            if (swipeRefreshLayout.isRefreshing)
+                swipeRefreshLayout.isRefreshing = false
             photoAdapter.setPhoto(viewState.popularPhotoResult.hits, homeViewModel.page)
         }
     }
@@ -101,24 +113,21 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
         }
     }
 
-    private fun initSpinner() {
-        val adapter = ArrayAdapter(this, R.layout.item_spinner, ORDER)
-        adapter.setDropDownViewResource(R.layout.item_spinner)
-        spOrder.post {
-            spOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
+    override fun onSelectSortOption(option: String) {
+        homeViewModel.page = 1
+        homeViewModel.orderBy = option
+        fetchPhoto()
+    }
 
-                override fun onItemSelected(p0: AdapterView<*>, p1: View?, p2: Int, p3: Long) {
-                    if (p1 != null) {
-                        homeViewModel.page = 1
-                        homeViewModel.orderBy = p0.getItemAtPosition(p2).toString()
-                        fetchPhoto()
-                    }
-                }
-            }
-        }
-        spOrder.adapter = adapter
+    private fun initSpinner() {
+        var sortOptions: ArrayList<SortOption> = ArrayList()
+        sortOptions.add(SortOption(ORDER[0], false))
+        sortOptions.add(SortOption(ORDER[1], true))
+
+        sortSpinnerAdapter =
+            SortSpinnerAdapter(this, R.layout.item_sort, R.id.tvSortOption, sortOptions, this)
+        spOrder.adapter = sortSpinnerAdapter
+
         val categoryAdapter = ArrayAdapter(this, R.layout.item_spinner, CATEGORIES)
         categoryAdapter.setDropDownViewResource(R.layout.item_spinner)
         spCategories.post {
@@ -130,6 +139,7 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
                     if (p1 != null) {
                         homeViewModel.page = 1
                         homeViewModel.selectedCategoryName = p0.getItemAtPosition(p2).toString()
+                        tvCategory.text = homeViewModel.selectedCategoryName
                         fetchPhoto()
                     }
                 }
@@ -153,5 +163,15 @@ class HomeActivity : MviActivity<HomeViewModel, HomeViewState, HomeEvent>(), Err
             homeViewModel.orderBy,
             isRefreshedAll
         )
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        ivFilter.setOnClickListener {
+            spCategories.performClick()
+        }
+        ivSort.setOnClickListener {
+            spOrder.performClick()
+        }
     }
 }
