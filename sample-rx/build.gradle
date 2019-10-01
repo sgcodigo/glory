@@ -77,5 +77,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:${versions.glide}"
     kapt "com.github.bumptech.glide:compiler:${versions.glide}"
 
+    implementation 'me.gujun.android.taggroup:library:1.4@aar'
+
 }
 

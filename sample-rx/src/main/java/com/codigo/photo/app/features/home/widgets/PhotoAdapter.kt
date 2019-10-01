@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.codigo.photo.app.features.details.PhotoDetailsActivity
 import com.codigo.photo.app.utils.load
 import com.codigo.photo.data.model.response.Hit
 import com.deevvdd.sample_rx.R
@@ -52,6 +53,7 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
             itemView.tvDownloadCount.text = "${photo.downloads}"
             itemView.tvViewCount.text = "${photo.views}"
             itemView.ivPhoto.load(photo.webformatURL)
+            itemView.setOnClickListener { PhotoDetailsActivity.startMe(itemView.context, photo) }
         }
     }
 }

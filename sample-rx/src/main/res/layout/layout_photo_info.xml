@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vgPhoto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_16"
+    app:behavior_peekHeight="96dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark_50"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/colorLightBlue" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_16"
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_arrow_up_white_24dp"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toTopOf="@id/ivUser"
+            tools:text="John Doe" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvViewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:drawableStart="@drawable/ic_view_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivUser"
+            tools:text="12 views" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLikesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:drawableStart="@drawable/ic_likes_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvViewCount"
+            tools:text="12 likes" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDownloadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:drawableStart="@drawable/ic_file_download_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLikesCount"
+            tools:text="12 downloads" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCommentsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:drawableStart="@drawable/ic_comment_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDownloadCount"
+            tools:text="12 comments" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
+            android:drawableStart="@drawable/ic_size_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCommentsCount"
+            tools:text="900 X 1600" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTagsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:drawableStart="@drawable/ic_tag_white_24dp"
+            android:drawablePadding="@dimen/space_8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintStart_toStartOf="@id/glCenter"
+            app:layout_constraintTop_toBottomOf="@id/ivUser"
+            tools:text="12 tags" />
+
+        <me.gujun.android.taggroup.TagGroup
+            android:id="@+id/tagGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_16"
+            app:atg_backgroundColor="@android:color/transparent"
+            app:atg_borderColor="@android:color/white"
+            app:atg_pressedBackgroundColor="@android:color/transparent"
+            app:atg_textColor="@android:color/white"
+            app:atg_textSize="@dimen/font_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/glCenter"
+            app:layout_constraintTop_toBottomOf="@id/tvViewCount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

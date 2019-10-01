@@ -1,5 +1,7 @@
 package com.codigo.photo.data.model.response
 
+import java.io.Serializable
+
 /**
  * Created by heinhtet on 20,September,2019
  */
@@ -32,4 +34,4 @@ data class Hit(
     val user_id: Long,
     val user: String,
     val userImageURL: String
-)
+) : Serializable
