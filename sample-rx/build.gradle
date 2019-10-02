@@ -79,5 +79,8 @@ dependencies {
 
     //SwipeRefreshLayout
     implementation group: 'androidx.swiperefreshlayout', name: 'swiperefreshlayout', version: "${versions.swipeRefreshLayout}"
+
+    implementation 'me.gujun.android.taggroup:library:1.4@aar'
+
 }
 
