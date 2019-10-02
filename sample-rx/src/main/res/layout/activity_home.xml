@@ -6,80 +6,119 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/vgSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spCategories"
-            style="@style/Widget.AppCompat.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/spinner_bg"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:popupElevation="3dp"
-            android:stateListAnimator="@drawable/spinner_sla"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.5" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spOrder"
-            style="@style/Widget.AppCompat.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/spinner_bg"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:popupElevation="3dp"
-            android:stateListAnimator="@drawable/spinner_sla"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.5" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
-        android:clipToPadding="false"
-        android:padding="@dimen/space_16"
-        app:layout_constraintBottom_toTopOf="@id/vgFrame"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vgSpinner" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <FrameLayout
-        android:id="@+id/vgFrame"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/space_16"
+            android:paddingEnd="@dimen/space_16">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spCategories"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_filter"
+                android:popupBackground="@color/colorPrimaryDark"
+                android:popupElevation="1dp"
+                android:stateListAnimator="@drawable/spinner_sla" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/space_8"
+                android:paddingEnd="@dimen/space_8">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFilter"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_filter" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@id/spCategories"
+                android:gravity="center_horizontal"
+                android:text="@string/category_travel"
+                android:textAllCaps="true"
+                android:textSize="@dimen/font_18" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spOrder"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_filter"
+                android:popupBackground="@color/colorPrimaryDark"
+                android:popupElevation="1dp"
+                android:stateListAnimator="@drawable/spinner_sla" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/space_8"
+                android:paddingEnd="@dimen/space_8">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSort"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_sort" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimaryDark"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMore"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/space_8"
-            android:text="@string/lb_more"
-            android:textColor="@color/textColor"
-            app:rippleColor="@color/textColor" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_16" />
 
-        <ProgressBar
-            android:id="@+id/pgLoading"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="4dp"
-            android:visibility="gone" />
-    </FrameLayout>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.codigo.photo.app.utils.StateView
         android:id="@+id/vgState"
@@ -89,7 +128,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

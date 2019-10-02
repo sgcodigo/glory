@@ -5,12 +5,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:itemBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
         <item name="android:fontFamily">@font/gilroy</item>
     </style>
 
     <style name="NormalTextStyle">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_sort</item>
     </style>
 
 </resources>
