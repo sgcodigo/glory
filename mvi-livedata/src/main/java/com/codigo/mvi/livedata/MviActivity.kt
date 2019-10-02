@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 
-abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity() {
+abstract class MviActivity<VM : MviViewModel<VS, E, *>, VS, E> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -12,8 +12,8 @@ abstract class MviActivity<VM : MviViewModel<VS, E>, VS, E> : AppCompatActivity(
         setUpLayout()
 
         getViewModel().streamViewSates().observe(this) {
-            render(it)
-        }
+                render(it)
+            }
 
         getViewModel().streamEvents().observe(this) {
             renderEvent(it)

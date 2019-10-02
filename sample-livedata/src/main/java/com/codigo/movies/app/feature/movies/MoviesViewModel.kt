@@ -1,85 +1,96 @@
 package com.codigo.movies.app.feature.movies
 
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.codigo.mvi.livedata.MviViewModel
-import com.codigo.movies.domain.MovieRepository
+import com.codigo.movies.MovieIntent
+import com.codigo.movies.MovieIntent.RefreshPopularMoviesIntent
+import com.codigo.movies.MovieIntent.RefreshUpcomingMoviesIntent
+import com.codigo.movies.MovieIntent.StreamPopularMoviesIntent
+import com.codigo.movies.MovieIntent.StreamUpcomingMoviesIntent
+import com.codigo.movies.data.model.entity.MovieEntity
+import com.codigo.movies.domain.usecase.GetMoviesUseCase
+import com.codigo.movies.domain.usecase.StreamMoviesUseCase
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularError
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoaded
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoading
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularResult
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingError
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoaded
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoading
+import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingResult
 import com.codigo.movies.domain.viewstate.movie.MoviesViewState
+import com.codigo.mvi.livedata.MviViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okio.IOException
 
 class MoviesViewModel(
-    private val movieRepository: MovieRepository
-) : MviViewModel<MoviesViewState, MoviesEvent>() {
+    private val streamMoviesUseCase: StreamMoviesUseCase,
+    private val getMoviesUseCase: GetMoviesUseCase
+) : MviViewModel<MoviesViewState, MoviesEvent, MovieIntent>() {
 
-    private var movieState = MoviesViewState()
+    private var viewState = MoviesViewState()
 
     init {
-        // observe movies
-        viewStateLiveData.addSource(movieRepository.streamPopularMovies()
-            .map {
-                movieState.copy(
-                    popularMovies = it,
-                    loadingPopularMovies = false,
-                    loadPopularMoviesError = null
-                )
-                    .also {
-                        movieState = it
-                    }
-            }) { viewStateLiveData.value = it }
-
-        viewStateLiveData.addSource(movieRepository.streamUpcomingMovies().map {
-            movieState.copy(
-                upcomingMovies = it,
-                loadingUpcomingMovies = false,
-                loadUpcomingMoviesError = null
-            )
-                .also {
-                    movieState = it
-                }
-        }) { viewStateLiveData.value = it }
-
-        // first time refresh from server
-        fetchPopularMovies()
-        fetchUpcomingMovies()
+        sendIntent(StreamPopularMoviesIntent)
+        sendIntent(StreamUpcomingMoviesIntent)
+        sendIntent(RefreshPopularMoviesIntent)
+        sendIntent(RefreshUpcomingMoviesIntent)
     }
 
-    fun fetchUpcomingMovies() {
+    override fun sendIntent(intent: MovieIntent) {
+        when (intent) {
+            is StreamPopularMoviesIntent -> streamPopularMovies()
+            is StreamUpcomingMoviesIntent -> streamUpcomingMovies()
+            is RefreshPopularMoviesIntent -> fetchPopularMovies()
+            is RefreshUpcomingMoviesIntent -> fetchUpcomingMovies()
+        }
+    }
+
+    private fun streamPopularMovies() {
+        viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_POPULAR)) {
+            updateViewState(PopularResult(it))
+        }
+    }
+
+    private fun streamUpcomingMovies() {
+        viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_UPCOMING)) {
+            updateViewState(UpcomingResult(it))
+        }
+    }
+
+    private fun fetchPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             // emit loading status
-            movieState.copy(loadingUpcomingMovies = true, loadUpcomingMoviesError = null).also {
-                movieState = it
-                viewStateLiveData.postValue(it)
-            }
-            // load movies
-            try {
-                movieRepository.fetchUpcomingMovies()
-            } catch (e: Exception) {
-                movieState.copy(loadUpcomingMoviesError = e, loadingUpcomingMovies = false).also {
-                    movieState = it
-                    viewStateLiveData.postValue(it)
+            updateViewState(PopularLoading)
+
+            getMoviesUseCase(MovieEntity.TYPE_POPULAR).either({
+                updateViewState(PopularError(it))
+                if (it is IOException) {
+                    emitEvent(MoviesEvent.OfflineEvent)
                 }
-//                emitEvent(MoviesEvent.LoadUpcomingMovieError(e))
-            }
+            }, {
+                updateViewState(PopularLoaded)
+            })
         }
     }
 
-    fun fetchPopularMovies() {
+    private fun fetchUpcomingMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            movieState.copy(loadingPopularMovies = true, loadPopularMoviesError = null).also {
-                movieState = it
-                viewStateLiveData.postValue(it)
-            }
-            // load movies
-            try {
-                movieRepository.fetchPopularMovies()
-            } catch (e: Exception) {
-                movieState.copy(loadPopularMoviesError = e, loadingPopularMovies = false).also {
-                    movieState = it
-                    viewStateLiveData.postValue(it)
-                }
-//                emitEvent(MoviesEvent.LoadPopularMovieError(e))
-            }
+            // emit loading status
+            updateViewState(UpcomingLoading)
+
+            getMoviesUseCase(MovieEntity.TYPE_UPCOMING).either({
+                updateViewState(UpcomingError(it))
+                emitEvent(MoviesEvent.OfflineEvent)
+            }, {
+                updateViewState(UpcomingLoaded)
+            })
         }
+    }
+
+    private fun updateViewState(state: MoviesPartialState) {
+        viewState = state.reduce(viewState)
+        viewStateLiveData.postValue(viewState)
     }
 }

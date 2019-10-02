@@ -38,6 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <com.codigo.movies.app.MiniErrorView
+                android:id="@+id/errorMiniPopular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
@@ -75,6 +80,11 @@
                 android:layout_margin="8dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.codigo.movies.app.MiniErrorView
+                android:id="@+id/errorMiniUpcoming"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <FrameLayout

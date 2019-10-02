@@ -1,22 +1,30 @@
 package com.codigo.movies.data.datasource.local
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
+import com.codigo.movies.data.db.dao.MovieDao
+import com.codigo.movies.data.model.entity.MovieEntity
+import com.codigo.movies.data.toDomain
+import com.codigo.movies.data.toEntity
 import com.codigo.movies.domain.model.Movie
 
-class MovieLocalImpl : MovieLocal {
-
-    private val upcomingMovies = MutableLiveData<List<Movie>>()
-    private val popularMovies = MutableLiveData<List<Movie>>()
+class MovieLocalImpl(
+    private val movieDao: MovieDao
+) : MovieLocal {
 
     override fun insertPopularMovies(movies: List<Movie>) {
-        popularMovies.postValue(movies)
+        movieDao.insert(movies.toEntity(MovieEntity.TYPE_POPULAR))
     }
 
-    override fun streamPopularMovies() = popularMovies
+    override fun streamPopularMovies() = movieDao.streamMovies(MovieEntity.TYPE_POPULAR)
+        .map { it.toDomain() }
+        .distinctUntilChanged()
 
     override fun insertUpcomingMovies(movies: List<Movie>) {
-        upcomingMovies.postValue(movies)
+        movieDao.insert(movies.toEntity(MovieEntity.TYPE_UPCOMING))
     }
 
-    override fun streamUpcomingMovies() = upcomingMovies
+    override fun streamUpcomingMovies() = movieDao.streamMovies(MovieEntity.TYPE_UPCOMING)
+        .map { it.toDomain() }
+        .distinctUntilChanged()
 }
