@@ -1,13 +1,8 @@
 package com.codigo.photo.app.features.home.widgets
 
-import android.app.Activity
-import android.util.DisplayMetrics
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.codigo.photo.app.utils.EMPTY
 import com.codigo.photo.app.utils.LOADING
@@ -101,22 +96,11 @@ class PhotoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val displayMetrics = DisplayMetrics()
         fun onBind(photo: Hit) {
-            (itemView.context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-            val height = displayMetrics.heightPixels
-            val layoutParam =
-                FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height / 2)
-            val marginInDp = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 8F, displayMetrics
-            ).toInt()
-            layoutParam.setMargins(marginInDp, marginInDp, marginInDp, marginInDp)
             itemView.ivUser.load(photo.userImageURL, true)
-            itemView.tvUserName.text = "@${photo.user}"
-            itemView.vgPhoto.layoutParams = layoutParam
-            itemView.ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
-            itemView.tvDownloadCount.text = "Download ${photo.downloads}"
-            itemView.tvViewCount.text = "View ${photo.views}"
+            itemView.tvUserName.text = photo.user
+            itemView.tvDownloadCount.text = "${photo.downloads}"
+            itemView.tvViewCount.text = "${photo.views}"
             itemView.ivPhoto.load(photo.webformatURL)
         }
     }
