@@ -55,6 +55,7 @@ ext.versions = [
         'lifecycle_version' : '2.1.0',
         'timber'            : '4.7.1',
         'lifecycle'         : '2.1.0',
+        'swipeRefreshLayout' : '1.0.0-beta01'
 ]
 
 task clean(type: Delete) {

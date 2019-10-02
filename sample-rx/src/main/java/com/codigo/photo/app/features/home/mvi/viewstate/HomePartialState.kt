@@ -1,5 +1,8 @@
 package com.codigo.photo.app.features.home.mvi.viewstate
 
+import com.codigo.photo.app.utils.EMPTY
+import com.codigo.photo.app.utils.LOADING
+import com.codigo.photo.data.model.response.Hit
 import com.codigo.photo.data.model.response.PhotoResponse
 
 /**
@@ -26,8 +29,40 @@ sealed class HomePartialState {
         }
     }
 
-    data class PhotoResult(val result: PhotoResponse) : HomePartialState() {
+    data class PhotoResult(val result: PhotoResponse, val page: Int) : HomePartialState() {
         override fun reduce(oldState: HomeViewState): HomeViewState {
+            var photos: ArrayList<Hit> = ArrayList(result.hits)
+            if (page > 1) {
+                var type: String = if (result.hits.isNotEmpty())
+                    LOADING
+                else
+                    EMPTY
+                val emptyState = Hit(
+                    -1,
+                    "",
+                    type,
+                    "",
+                    "",
+                    0,
+                    0,
+                    "",
+                    "",
+                    "",
+                    "",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    "",
+                    ""
+                )
+                photos.add(emptyState)
+            }
             return oldState.copy(
                 loading = false,
                 error = null,

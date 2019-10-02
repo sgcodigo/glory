@@ -31,3 +31,6 @@ val ORDER = arrayListOf(
 )
 const val POPULAR = "popular"
 const val LATEST = "latest"
+
+const val LOADING = "loading"
+const val EMPTY = "empty"
