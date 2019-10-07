@@ -18,5 +18,10 @@ abstract class MovieDatabase : RoomDatabase() {
             MovieDatabase::class.java,
             "movie-db"
         ).build()
+
+        fun createForTest(context: Context) = Room.inMemoryDatabaseBuilder(
+            context,
+            MovieDatabase::class.java
+        ).build()
     }
 }

@@ -1,6 +1,5 @@
 package com.codigo.movies
 
-import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -11,6 +10,7 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        Assert.assertEquals(4, 2 + 2)
+//        Assert.assertEquals(4, sum(2, 2))
+//        Assert.assertEquals(4, sum())
     }
 }
