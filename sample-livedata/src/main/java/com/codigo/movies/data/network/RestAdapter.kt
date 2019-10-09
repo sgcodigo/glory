@@ -7,8 +7,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-fun retrofitClient(httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-    .baseUrl(MOVIE_BASE_URL)
+fun retrofitClient(url: String, httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    .baseUrl(url)
     .client(httpClient)
     .addConverterFactory(MoshiConverterFactory.create())
     .build()
