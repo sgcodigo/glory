@@ -1,28 +1,17 @@
 package com.codigo.movies.app.feature.movies
 
 import androidx.lifecycle.viewModelScope
-import com.codigo.movies.MovieIntent
-import com.codigo.movies.MovieIntent.RefreshPopularMoviesIntent
-import com.codigo.movies.MovieIntent.RefreshUpcomingMoviesIntent
-import com.codigo.movies.MovieIntent.StreamPopularMoviesIntent
-import com.codigo.movies.MovieIntent.StreamUpcomingMoviesIntent
+import com.codigo.movies.app.feature.movies.MovieIntent.*
+import com.codigo.movies.app.feature.movies.viewstate.MoviesPartialState
+import com.codigo.movies.app.feature.movies.viewstate.MoviesPartialState.*
+import com.codigo.movies.app.feature.movies.viewstate.MoviesViewState
+import com.codigo.movies.data.exception.DataException
 import com.codigo.movies.data.model.entity.MovieEntity
 import com.codigo.movies.domain.usecase.GetMoviesUseCase
 import com.codigo.movies.domain.usecase.StreamMoviesUseCase
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularError
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoaded
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularLoading
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.PopularResult
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingError
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoaded
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingLoading
-import com.codigo.movies.domain.viewstate.movie.MoviesPartialState.UpcomingResult
-import com.codigo.movies.domain.viewstate.movie.MoviesViewState
 import com.codigo.mvi.livedata.MviViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import okio.IOException
 
 class MoviesViewModel(
     private val streamMoviesUseCase: StreamMoviesUseCase,
@@ -48,25 +37,31 @@ class MoviesViewModel(
     }
 
     private fun streamPopularMovies() {
-        viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_POPULAR)) {
-            updateViewState(PopularResult(it))
+        viewModelScope.launch {
+            streamMoviesUseCase(MovieEntity.TYPE_POPULAR)
+                .collect {
+                    updateViewState(PopularResult(it))
+                }
         }
     }
 
     private fun streamUpcomingMovies() {
-        viewStateLiveData.addSource(streamMoviesUseCase(MovieEntity.TYPE_UPCOMING)) {
-            updateViewState(UpcomingResult(it))
+        viewModelScope.launch {
+            streamMoviesUseCase(MovieEntity.TYPE_UPCOMING)
+                .collect {
+                    updateViewState(UpcomingResult(it))
+                }
         }
     }
 
     private fun fetchPopularMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             // emit loading status
             updateViewState(PopularLoading)
 
             getMoviesUseCase(MovieEntity.TYPE_POPULAR).either({
                 updateViewState(PopularError(it))
-                if (it is IOException) {
+                if (it is DataException.Network) {
                     emitEvent(MoviesEvent.OfflineEvent)
                 }
             }, {
@@ -76,7 +71,7 @@ class MoviesViewModel(
     }
 
     private fun fetchUpcomingMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             // emit loading status
             updateViewState(UpcomingLoading)
 

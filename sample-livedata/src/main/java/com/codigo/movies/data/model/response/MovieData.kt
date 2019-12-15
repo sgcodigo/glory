@@ -1,4 +1,4 @@
-package com.codigo.movies.data.model.data
+package com.codigo.movies.data.model.response
 
 import com.squareup.moshi.Json
 

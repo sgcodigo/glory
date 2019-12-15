@@ -29,7 +29,7 @@ val dataModule = module {
 
     single<MovieRepository> { MovieRepositoryImpl(get(), get()) }
 
-    single<MovieRemote> { MovieRemoteImpl(get()) }
+    single<MovieRemote> { MovieRemoteImpl(get(), get()) }
 
     single<MovieLocal> { MovieLocalImpl(get()) }
 }

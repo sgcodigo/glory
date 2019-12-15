@@ -1,4 +1,4 @@
-package com.codigo.movies.data.util
+package com.codigo.movies.app.extension
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

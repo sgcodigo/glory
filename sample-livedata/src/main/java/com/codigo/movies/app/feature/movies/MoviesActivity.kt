@@ -3,11 +3,10 @@ package com.codigo.movies.app.feature.movies
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codigo.movies.MovieIntent
 import com.codigo.movies.R
-import com.codigo.movies.data.util.gone
-import com.codigo.movies.data.util.show
-import com.codigo.movies.domain.viewstate.movie.MoviesViewState
+import com.codigo.movies.app.extension.gone
+import com.codigo.movies.app.extension.show
+import com.codigo.movies.app.feature.movies.viewstate.MoviesViewState
 import com.codigo.mvi.livedata.MviActivity
 import kotlinx.android.synthetic.main.activity_movies.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -50,9 +49,6 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
             adapter = upcomingMovieAdapter
         }
 
-        errorMiniPopular.setErrorText(getString(R.string.error_loading_popular_movies))
-        errorMiniUpcoming.setErrorText(getString(R.string.error_loading_upcoming_movies))
-
         errorMiniPopular.setOnClickListener {
             getViewModel().sendIntent(MovieIntent.RefreshPopularMoviesIntent)
         }
@@ -83,6 +79,12 @@ class MoviesActivity : MviActivity<MoviesViewModel, MoviesViewState, MoviesEvent
                 pbPopularMovie.gone()
                 errorMiniPopular.hideLoading()
             }
+
+            btnRetryPopular.text = loadPopularMoviesError?.localizedMessage ?: ""
+            errorMiniPopular.setErrorText(loadPopularMoviesError?.localizedMessage ?: "")
+
+            btnRetryUpcoming.text = loadUpcomingMoviesError?.localizedMessage ?: ""
+            errorMiniUpcoming.setErrorText(loadUpcomingMoviesError?.localizedMessage ?: "")
 
             if (loadPopularMoviesError != null && popularMovies.isNotEmpty()) {
                 errorMiniPopular.showError()

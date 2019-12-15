@@ -1,4 +1,4 @@
-package com.codigo.movies
+package com.codigo.movies.app.feature.movies
 
 sealed class MovieIntent {
     object RefreshPopularMoviesIntent : MovieIntent()

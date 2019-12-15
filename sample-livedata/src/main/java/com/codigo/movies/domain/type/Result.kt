@@ -1,4 +1,4 @@
-package com.codigo.movies.domain
+package com.codigo.movies.domain.type
 
 /*
  * Copyright (C) 2019 The Android Open Source Project

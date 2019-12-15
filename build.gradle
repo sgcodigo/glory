@@ -45,7 +45,7 @@ ext.versions = [
         'rxAndroid'         : '2.1.1',
         'retrofit'          : '2.6.1',
         'gson'              : '2.8.2',
-        'room'              : '2.1.0',
+        'room'              : '2.2.2',
         'loggingInterceptor': '3.10.0',
         'koin'              : '2.0.1',
         'epoxy'             : '3.3.1',

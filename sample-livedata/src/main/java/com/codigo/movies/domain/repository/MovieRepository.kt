@@ -1,8 +1,8 @@
 package com.codigo.movies.domain.repository
 
-import androidx.lifecycle.LiveData
-import com.codigo.movies.domain.Either
 import com.codigo.movies.domain.model.Movie
+import com.codigo.movies.domain.type.Either
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
@@ -10,7 +10,7 @@ interface MovieRepository {
 
     suspend fun fetchUpcomingMovies(): Either<Throwable, List<Movie>>
 
-    fun streamPopularMovies(): LiveData<List<Movie>>
+    fun streamPopularMovies(): Flow<List<Movie>>
 
-    fun streamUpcomingMovies(): LiveData<List<Movie>>
+    fun streamUpcomingMovies(): Flow<List<Movie>>
 }

@@ -1,7 +1,7 @@
-package com.codigo.movies.data
+package com.codigo.movies.data.mapper
 
-import com.codigo.movies.data.model.data.MovieData
 import com.codigo.movies.data.model.entity.MovieEntity
+import com.codigo.movies.data.model.response.MovieData
 import com.codigo.movies.domain.model.Movie
 
 @JvmName("MovieDataToDomain")

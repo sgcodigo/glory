@@ -1,4 +1,4 @@
-package com.codigo.movies.domain.viewstate.movie
+package com.codigo.movies.app.feature.movies.viewstate
 
 import com.codigo.movies.domain.model.Movie
 

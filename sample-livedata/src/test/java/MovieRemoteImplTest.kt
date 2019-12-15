@@ -1,9 +1,7 @@
 import com.codigo.movies.data.datasource.remote.MovieRemote
 import com.codigo.movies.data.datasource.remote.MovieRemoteImpl
 import com.codigo.movies.data.network.service.MovieService
-import com.codigo.movies.domain.Either
-import com.codigo.movies.domain.model.Movie
-import com.github.javafaker.Faker
+import com.codigo.movies.domain.type.Either
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

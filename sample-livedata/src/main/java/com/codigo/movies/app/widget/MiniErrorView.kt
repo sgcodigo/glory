@@ -1,12 +1,12 @@
-package com.codigo.movies.app
+package com.codigo.movies.app.widget
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.codigo.movies.R
-import com.codigo.movies.data.util.gone
-import com.codigo.movies.data.util.show
+import com.codigo.movies.app.extension.gone
+import com.codigo.movies.app.extension.show
 import kotlinx.android.synthetic.main.layout_error_mini.view.*
 
 class MiniErrorView : FrameLayout {

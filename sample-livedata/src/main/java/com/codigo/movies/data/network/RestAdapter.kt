@@ -1,7 +1,6 @@
 package com.codigo.movies.data.network
 
 import com.codigo.movies.BuildConfig
-import com.codigo.movies.data.util.MOVIE_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +14,7 @@ fun retrofitClient(url: String, httpClient: OkHttpClient): Retrofit = Retrofit.B
 
 fun okHttpClient(): OkHttpClient {
     val builder = OkHttpClient.Builder()
+    builder.addInterceptor(ResponseInterceptor())
     if (BuildConfig.DEBUG) {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

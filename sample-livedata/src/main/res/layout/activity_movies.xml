@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.codigo.movies.app.MiniErrorView
+            <com.codigo.movies.app.widget.MiniErrorView
                 android:id="@+id/errorMiniPopular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -66,7 +66,7 @@
                     android:layout_gravity="center"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:textAllCaps="false"
-                    android:text="@string/retry_popular_movies"
+                    tools:text="@string/retry_popular_movies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.codigo.movies.app.MiniErrorView
+            <com.codigo.movies.app.widget.MiniErrorView
                 android:id="@+id/errorMiniUpcoming"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

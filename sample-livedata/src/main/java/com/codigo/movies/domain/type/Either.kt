@@ -1,4 +1,4 @@
-package com.codigo.movies.domain
+package com.codigo.movies.domain.type
 
 /**
  * Represents a value of one of two possible types (a disjoint union).
@@ -22,6 +22,12 @@ sealed class Either<out L, out R> {
     val isLeft get() = this is Left<L>
 
     fun <C> either(fnL: (L) -> C, fnR: (R) -> C): C =
+        when (this) {
+            is Left -> fnL(a)
+            is Right -> fnR(b)
+        }
+
+    suspend fun <C> suspendEither(fnL: (L) -> C, fnR: suspend (R) -> C): C =
         when (this) {
             is Left -> fnL(a)
             is Right -> fnR(b)

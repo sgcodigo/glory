@@ -1,13 +1,13 @@
 package com.codigo.movies.data.datasource.local
 
-import androidx.lifecycle.LiveData
 import com.codigo.movies.domain.model.Movie
+import kotlinx.coroutines.flow.Flow
 
 interface MovieLocal {
 
-    fun streamPopularMovies(): LiveData<List<Movie>>
-    fun insertPopularMovies(movies: List<Movie>)
+    fun streamPopularMovies(): Flow<List<Movie>>
+    suspend fun insertPopularMovies(movies: List<Movie>)
 
-    fun streamUpcomingMovies(): LiveData<List<Movie>>
-    fun insertUpcomingMovies(movies: List<Movie>)
+    fun streamUpcomingMovies(): Flow<List<Movie>>
+    suspend fun insertUpcomingMovies(movies: List<Movie>)
 }

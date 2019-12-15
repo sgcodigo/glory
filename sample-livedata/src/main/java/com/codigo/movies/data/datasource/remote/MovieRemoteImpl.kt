@@ -1,27 +1,27 @@
 package com.codigo.movies.data.datasource.remote
 
 import com.codigo.movies.BuildConfig
+import com.codigo.movies.data.mapper.toDomain
 import com.codigo.movies.data.network.service.MovieService
-import com.codigo.movies.data.toDomain
-import com.codigo.movies.domain.Either
+import com.codigo.movies.data.util.handleCall
+import retrofit2.Retrofit
 
 class MovieRemoteImpl(
-    private val movieService: MovieService
+    private val movieService: MovieService,
+    private val retrofit: Retrofit
 ) : MovieRemote {
 
-    override suspend fun fetchUpcomingMovies() = try {
-        movieService.getUpcomingMovies(BuildConfig.ApiKey).results.toDomain().let {
-            Either.Right(it)
-        }
-    } catch (e: Exception) {
-        Either.Left(e)
-    }
+    override suspend fun fetchUpcomingMovies() =
+        retrofit.handleCall(
+            fallbackErrorMessage = "Failed to fetch upcoming movies",
+            apiCall = { movieService.getUpcomingMovies(BuildConfig.ApiKey) },
+            mapper = { it.results.toDomain() }
+        )
 
-    override suspend fun fetchPopularMovies() = try {
-        movieService.getPopularMovies(BuildConfig.ApiKey).results.toDomain().let {
-            Either.Right(it)
-        }
-    } catch (e: Exception) {
-        Either.Left(e)
-    }
+    override suspend fun fetchPopularMovies() =
+        retrofit.handleCall(
+            fallbackErrorMessage = "Failed to fetch popular movies",
+            apiCall = { movieService.getPopularMovies(BuildConfig.ApiKey) },
+            mapper = { it.results.toDomain() }
+        )
 }

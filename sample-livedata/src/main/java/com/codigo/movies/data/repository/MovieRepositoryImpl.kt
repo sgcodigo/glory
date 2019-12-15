@@ -14,10 +14,10 @@ class MovieRepositoryImpl(
     override fun streamPopularMovies() = local.streamPopularMovies()
 
     override suspend fun fetchPopularMovies() = remote.fetchPopularMovies().also {
-        it.either({}, { local.insertPopularMovies(it) })
+        it.suspendEither({}, { local.insertPopularMovies(it) })
     }
 
     override suspend fun fetchUpcomingMovies() = remote.fetchUpcomingMovies().also {
-        it.either({}, { local.insertUpcomingMovies(it) })
+        it.suspendEither({}, { local.insertUpcomingMovies(it) })
     }
 }
